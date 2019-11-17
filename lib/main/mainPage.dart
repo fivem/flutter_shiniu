@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shiniu/main/logisticsPage.dart';
-import 'package:flutter_shiniu/main/organizePage.dart';
-import 'package:flutter_shiniu/main/producePage.dart';
-import 'package:flutter_shiniu/main/salePage.dart';
+import 'package:flutter_shiniu/main/logisticsPage/logisticsPage.dart';
+import 'package:flutter_shiniu/main/organizePage/organizePage.dart';
+import 'package:flutter_shiniu/main/producePage/producePage.dart';
+import 'package:flutter_shiniu/main/salePage/salePage.dart';
 
 class MainPage extends StatefulWidget{
   @override
