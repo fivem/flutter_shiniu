@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
 
 class CommonAppBar extends StatefulWidget implements PreferredSizeWidget {
-  CommonAppBar({Key key,this.title, this.icon }) : super(key: key);
+  CommonAppBar({Key key,this.title, this.icon}) : super(key: key);
   final String title;
   final IconData icon;
-
   @override
   State<StatefulWidget> createState() {
     return _CommonAppBar();
   }
-
   @override
   Size get preferredSize => Size.fromHeight(56.0);
-
-
 }
 
 class _CommonAppBar extends State<CommonAppBar>{
@@ -22,7 +18,7 @@ class _CommonAppBar extends State<CommonAppBar>{
   Widget build(BuildContext context) {
     return AppBar(
       title: new Text(widget.title),
-      leading: new Icon(widget.icon),
+      leading: widget.icon==null?null: Icon(widget.icon),
       backgroundColor: Colors.blue,
       centerTitle: true,
       actions: <Widget>[

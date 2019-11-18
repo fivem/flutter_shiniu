@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shiniu/main/salePage/saleDetailPage/productSales/hotSale.dart';
 
 class SalesCard extends StatelessWidget{
   @override
@@ -27,11 +28,11 @@ class SalesCard extends StatelessWidget{
                     child:Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                          getListIcon(Icons.insert_chart,'热销'),
-                          getListIcon(Icons.fiber_new,'新上'),
-                          getListIcon(Icons.access_time,'待售'),
-                          getListIcon(Icons.access_alarm,'已售'),
-                          getListIcon(Icons.backspace,'退货'),
+                          getListIcon(context,Icons.insert_chart,'热销','hotSale'),
+                          getListIcon(context,Icons.fiber_new,'新上','newProduct'),
+                          getListIcon(context,Icons.access_time,'待售','waitSale'),
+                          getListIcon(context,Icons.access_alarm,'已售','haveSale'),
+                          getListIcon(context,Icons.access_alarm,'退货','returnProduct'),
                         ]
                     )
                 ),
@@ -39,31 +40,50 @@ class SalesCard extends StatelessWidget{
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        getListIcon(Icons.insert_chart,'热销'),
-                        getListIcon(Icons.fiber_new,'新上'),
-                        getListIcon(Icons.access_time,'待售'),
-                        getListIcon(Icons.access_alarm,'已售'),
-                        getListIcon(Icons.access_alarm,'退货'),
+                        getListIcon(context,Icons.insert_chart,'推广','extension'),
+                        getListIcon(context,Icons.fiber_new,'营销','marketing'),
+                        getListIcon(context,Icons.access_time,'促销','promotion'),
+                        getListIcon(context,Icons.access_alarm,'调研','survey'),
+                        getListIcon(context,Icons.access_alarm,'反馈','feedBack'),
                       ]
                   ),
                 )
-
               ],
             )
         )
       ),
     );
   }
-  getListIcon(IconData icon,String text){
-   return Column(
+  getListIcon(BuildContext context,IconData icon,String text,String target){
+    _handleTap(){
+      print("target:"+target);
+      var tempTarget = getTargetPage(target);
+      if(tempTarget != null){
+        Navigator.of(context).push(MaterialPageRoute(builder:(_){
+          return tempTarget;
+        })
+        );
+      }
+    }
+    return Column(
        children: <Widget>[
-         CircleAvatar(
-             backgroundColor: Colors.blue,
-             radius: 20.0,
-             child: Icon(icon,size:20)
+         GestureDetector(
+           onTap:_handleTap,
+           child:CircleAvatar(
+               backgroundColor: Colors.blue,
+               radius: 20.0,
+               child: Icon(icon,size:20)
+           )
          ),
          Text(text)
        ]
-   );
+    );
+  }
+
+  getTargetPage(String target){
+    switch(target){
+      case 'hotSale': return HotSale();
+      default: null;
+    }
   }
 }

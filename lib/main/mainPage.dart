@@ -11,7 +11,7 @@ class MainPage extends StatefulWidget{
 
 class _MainPage extends State<MainPage>{
   int _currentIndex = 0;
-  Widget mainWidget ;
+  Widget mainWidget = SalePage();
   List<Widget> list = [SalePage(),ProducePage(),OrganizePage(),LogisticsPage()];
 
   @override
