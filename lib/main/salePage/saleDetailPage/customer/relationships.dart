@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shiniu/main/commonAppBar.dart';
-class FeedBack extends StatefulWidget {
+class Relationships extends StatefulWidget {
   @override
-  _FeedBackState createState() => _FeedBackState();
+  _RelationshipsState createState() => _RelationshipsState();
 }
 
-class _FeedBackState extends State<FeedBack> {
+class _RelationshipsState extends State<Relationships> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CommonAppBar(title:'反馈'),
+      appBar: CommonAppBar(title:'关系维系'),
       body: Container(
 
       )

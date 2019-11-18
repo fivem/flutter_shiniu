@@ -1,5 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shiniu/main/salePage/saleDetailPage/productSales/extension.dart';
+import 'package:flutter_shiniu/main/salePage/saleDetailPage/productSales/feedBack.dart';
+import 'package:flutter_shiniu/main/salePage/saleDetailPage/productSales/haveSale.dart';
 import 'package:flutter_shiniu/main/salePage/saleDetailPage/productSales/hotSale.dart';
+import 'package:flutter_shiniu/main/salePage/saleDetailPage/productSales/marketing.dart';
+import 'package:flutter_shiniu/main/salePage/saleDetailPage/productSales/newProduct.dart';
+import 'package:flutter_shiniu/main/salePage/saleDetailPage/productSales/promotion.dart';
+import 'package:flutter_shiniu/main/salePage/saleDetailPage/productSales/returnProduct.dart';
+import 'package:flutter_shiniu/main/salePage/saleDetailPage/productSales/survey.dart';
+import 'package:flutter_shiniu/main/salePage/saleDetailPage/productSales/waitSale.dart';
 
 class SalesCard extends StatelessWidget{
   @override
@@ -83,6 +92,15 @@ class SalesCard extends StatelessWidget{
   getTargetPage(String target){
     switch(target){
       case 'hotSale': return HotSale();
+      case 'newProduct': return NewProduct();
+      case 'waitSale': return WaitSale();
+      case 'haveSale': return HaveSale();
+      case 'returnProduct': return ReturnProduct();
+      case 'extension': return Extension();
+      case 'marketing': return Marketing();
+      case 'promotion': return Promotion();
+      case 'survey': return Survey();
+      case 'feedBack': return FeedBack();
       default: null;
     }
   }

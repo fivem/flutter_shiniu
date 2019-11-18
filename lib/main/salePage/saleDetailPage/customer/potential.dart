@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shiniu/main/commonAppBar.dart';
-class FeedBack extends StatefulWidget {
+class Potential extends StatefulWidget {
   @override
-  _FeedBackState createState() => _FeedBackState();
+  _PotentialState createState() => _PotentialState();
 }
 
-class _FeedBackState extends State<FeedBack> {
+class _PotentialState extends State<Potential> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CommonAppBar(title:'反馈'),
+      appBar: CommonAppBar(title:'潜在客户'),
       body: Container(
 
       )
