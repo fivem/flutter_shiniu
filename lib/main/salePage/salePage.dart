@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shiniu/main/commonAppBar.dart';
 import 'package:flutter_shiniu/main/salePage/saleDetailPage/salesCard.dart';
+import 'package:flutter_shiniu/main/salePage/saleDetailPage/salesPlan.dart';
 
 class SalePage extends StatefulWidget{
   @override
@@ -14,7 +15,8 @@ class _SalePage extends State<SalePage>{
       appBar: CommonAppBar(title:'销售',icon:Icons.home),
       body: Column(
         children: <Widget>[
-          SalesCard()
+          SalesCard(),
+          SalesPlan()
         ],
       )
     );
