@@ -105,6 +105,12 @@ class _HotSale extends State<HotSale>{
                                     child: Text((index+4).toString())
                                 )
                               ),
+                              Expanded(
+                                child:Container(
+                                  padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                  child: Text('酱牛肉')
+                                )
+                              ),
                               Container(
                                 alignment: Alignment.centerRight,
                                 padding:EdgeInsets.fromLTRB(0, 0, 20, 0),
