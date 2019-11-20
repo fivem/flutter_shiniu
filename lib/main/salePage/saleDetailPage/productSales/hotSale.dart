@@ -26,7 +26,7 @@ class _HotSale extends State<HotSale>{
           child: Column(
             children: <Widget>[
               Card(
-                elevation: 15.0,  //设置阴影
+                elevation: 15.0,
                 shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(14.0))),
                 child: Container(
                   height: 120,
@@ -95,7 +95,7 @@ class _HotSale extends State<HotSale>{
                   child: ListView.builder(
                     itemBuilder: (BuildContext context, int index){
                       return Card(
-                        elevation: 15.0,  //设置阴影
+                        elevation: 15.0,
                         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(14.0))),
                         child: Container(
                           height: 55,
@@ -112,13 +112,11 @@ class _HotSale extends State<HotSale>{
                               ),
                               Container(
                                   padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                                  //child: Text('酱牛肉')
                                   child: Text(listData[index]['name'])
                               ),
                               Expanded(
                                 child:Container(
                                   padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                  //child: Text('酱牛肉')
                                     child: Text(listData[index]['account'])
                                 )
                               ),
