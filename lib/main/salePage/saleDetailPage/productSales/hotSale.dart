@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shiniu/common/net/net.dart';
 import 'package:flutter_shiniu/main/commonAppBar.dart';
@@ -109,17 +110,22 @@ class _HotSale extends State<HotSale>{
                                     child: Text((index+4).toString())
                                 )
                               ),
+                              Container(
+                                  padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                  //child: Text('酱牛肉')
+                                  child: Text(listData[index]['name'])
+                              ),
                               Expanded(
                                 child:Container(
                                   padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                                   //child: Text('酱牛肉')
-                                    child: Text(listData[index]['name'])
+                                    child: Text(listData[index]['account'])
                                 )
                               ),
                               Container(
                                 alignment: Alignment.centerRight,
                                 padding:EdgeInsets.fromLTRB(0, 0, 20, 0),
-                                child: index%2==0? Icon(Icons.trending_up,color: Colors.green):Icon(Icons.trending_down,color: Colors.red)
+                                child: listData[index]['float']=='up'? Icon(Icons.trending_up,color: Colors.green):Icon(Icons.trending_down,color: Colors.red)
                               )
                             ],
                           )
@@ -150,8 +156,13 @@ class _HotSale extends State<HotSale>{
   @override
   void initState() {
     super.initState();
+    _getListData();
     //var result = Net().get("/hostSaleListData");
-    Net().get("/hostSaleListData").then((result){
+
+  }
+  _getListData() async{
+    var result = await Net().get("/hostSaleListData");
+    setState((){
       listData = result;
       print(listData);
     });

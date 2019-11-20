@@ -7,7 +7,7 @@ List list=[{
   "id":5,
   "name":"臀肉",
   "account":"102",
-  "float":"down"
+  "float":"up"
 },{
   "id":6,
   "name":"牛排",
@@ -22,7 +22,7 @@ List list=[{
   "id":8,
   "name":"肩肉",
   "account":"40",
-  "float":"up"
+  "float":"down"
 },{
   "id":9,
   "name":"牛腩",
