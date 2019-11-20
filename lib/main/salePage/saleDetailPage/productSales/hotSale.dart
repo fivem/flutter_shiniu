@@ -13,7 +13,7 @@ class HotSale extends StatefulWidget{
 
 class _HotSale extends State<HotSale>{
   BuildContext context;
-  List listData = [];
+  List listData =[];
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +37,24 @@ class _HotSale extends State<HotSale>{
                           alignment: Alignment.bottomCenter,
                           padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
                           child:Container(
-                            child:Text('2nd',style:TextStyle(
-                              fontSize: 25,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            )),
+                            child: Column(
+                              children: <Widget>[
+                                Expanded(
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    child: Text(listData[1]['name'],style:TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    )),
+                                  ),
+                                ),
+                                Text('2nd',style:TextStyle(
+                                  fontSize: 25,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ))
+                              ],
+                            ),
                             height: 90,
                             width: 100,
                             alignment: Alignment.bottomCenter,
@@ -53,11 +66,24 @@ class _HotSale extends State<HotSale>{
                         )
                       ),
                       Container(
-                          child:Text('1st',style:TextStyle(
-                            fontSize: 30,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          )),
+                          child:Column(
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  child: Text(listData[0]['name'],style:TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                                ),
+                              ),
+                              Text('1st',style:TextStyle(
+                                fontSize: 30,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ))
+                            ],
+                          ),
                           height: 100,
                           width: 100,
                           alignment: Alignment.bottomCenter,
@@ -71,11 +97,24 @@ class _HotSale extends State<HotSale>{
                         alignment: Alignment.bottomCenter,
                         padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
                         child:Container(
-                          child:Text('3rd',style:TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          )),
+                          child:Column(
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  child: Text(listData[2]['name'],style:TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                                ),
+                              ),
+                              Text('3rd',style:TextStyle(
+                                fontSize: 20,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ))
+                            ],
+                          ),
                           alignment: Alignment.bottomCenter,
                           height: 80,
                           width: 100,
@@ -113,24 +152,24 @@ class _HotSale extends State<HotSale>{
                               Expanded(
                                 child:Container(
                                   padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                  child: Text(listData[index]['name'])
+                                  child: Text(listData[index+3]['name'])
                                 )
                               ),
                               Container(
                                 padding: EdgeInsets.fromLTRB(10, 0, 20, 0),
-                                child: Text(listData[index]['account'])
+                                child: Text(listData[index+3]['account'])
                               ),
                               Container(
                                 alignment: Alignment.centerRight,
                                 padding:EdgeInsets.fromLTRB(0, 0, 20, 0),
-                                child: listData[index]['float']=='up'? Icon(Icons.trending_up,color: Colors.green):Icon(Icons.trending_down,color: Colors.red)
+                                child: listData[index+3]['float']=='up'? Icon(Icons.trending_up,color: Colors.green):Icon(Icons.trending_down,color: Colors.red)
                               )
                             ],
                           )
                         )
                       );
                     },
-                    itemCount: listData.length
+                    itemCount: listData.length - 3
                   ),
                   onRefresh: _handleRefresh
                 )
@@ -154,9 +193,10 @@ class _HotSale extends State<HotSale>{
   @override
   void initState() {
     super.initState();
+    listData.add({"name":""});
+    listData.add({"name":""});
+    listData.add({"name":""});
     _getListData();
-    //var result = Net().get("/hostSaleListData");
-
   }
   _getListData() async{
     var result = await Net().get("/hostSaleListData");
