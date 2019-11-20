@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shiniu/common/net/net.dart';
 import 'package:flutter_shiniu/main/commonAppBar.dart';
+
 
 class HotSale extends StatefulWidget{
   @override
@@ -10,6 +12,8 @@ class HotSale extends StatefulWidget{
 
 class _HotSale extends State<HotSale>{
   BuildContext context;
+  List listData = [];
+
   @override
   Widget build(BuildContext context) {
     this.context = context;
@@ -108,7 +112,8 @@ class _HotSale extends State<HotSale>{
                               Expanded(
                                 child:Container(
                                   padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                  child: Text('酱牛肉')
+                                  //child: Text('酱牛肉')
+                                    child: Text(listData[index]['name'])
                                 )
                               ),
                               Container(
@@ -121,7 +126,7 @@ class _HotSale extends State<HotSale>{
                         )
                       );
                     },
-                    itemCount: 7
+                    itemCount: listData.length
                   ),
                   onRefresh: _handleRefresh
                 )
@@ -140,6 +145,16 @@ class _HotSale extends State<HotSale>{
     print('hotSale go back');
     Navigator.of(context).pop();
     return new Future.value(false);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    //var result = Net().get("/hostSaleListData");
+    Net().get("/hostSaleListData").then((result){
+      listData = result;
+      print(listData);
+    });
   }
 
 }
