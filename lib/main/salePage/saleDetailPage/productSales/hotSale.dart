@@ -105,20 +105,20 @@ class _HotSale extends State<HotSale>{
                                 alignment: Alignment.center,
                                 padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                                 child:CircleAvatar(
-                                    backgroundColor: Colors.blue,
-                                    radius: 15.0,
-                                    child: Text((index+4).toString())
+                                  backgroundColor: Colors.blue,
+                                  radius: 15.0,
+                                  child: Text((index+4).toString())
                                 )
-                              ),
-                              Container(
-                                  padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                                  child: Text(listData[index]['name'])
                               ),
                               Expanded(
                                 child:Container(
                                   padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                    child: Text(listData[index]['account'])
+                                  child: Text(listData[index]['name'])
                                 )
+                              ),
+                              Container(
+                                padding: EdgeInsets.fromLTRB(10, 0, 20, 0),
+                                child: Text(listData[index]['account'])
                               ),
                               Container(
                                 alignment: Alignment.centerRight,
