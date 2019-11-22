@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter_shiniu/common/mock/mockdata/hotSaleListData.dart' as HotSaleListData;
 import 'package:flutter_shiniu/common/mock/mockdata/newProductData.dart' as NewProductData;
 import 'package:flutter_shiniu/common/mock/mockdata/waitSaleData.dart' as WaitSaleData;
+import 'package:flutter_shiniu/common/mock/mockdata/haveSaleData.dart' as HaveSaleData;
+
 
 
 
@@ -55,7 +57,7 @@ class MockServer{
   Future<MockResponse> mockHaveSaleData() async{
     return new MockResponse()
       ..httpCode = 200
-      ..body = json.encode("");
+      ..body = json.encode(HaveSaleData.data);
   }
   closeWebServer(){
     server.shutdown();

@@ -40,8 +40,8 @@ class SalesCard extends StatelessWidget{
                           getListIcon(context,Icons.insert_chart,'热销','hotSale'),
                           getListIcon(context,Icons.fiber_new,'新上','newProduct'),
                           getListIcon(context,Icons.access_time,'待售','waitSale'),
-                          getListIcon(context,Icons.access_alarm,'已售','haveSale'),
-                          getListIcon(context,Icons.access_alarm,'退货','returnProduct'),
+                          getListIcon(context,Icons.done,'已售','haveSale'),
+                          getListIcon(context,Icons.backspace,'退货','returnProduct'),
                         ]
                     )
                 ),
@@ -49,11 +49,11 @@ class SalesCard extends StatelessWidget{
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        getListIcon(context,Icons.insert_chart,'推广','extension'),
-                        getListIcon(context,Icons.fiber_new,'营销','marketing'),
-                        getListIcon(context,Icons.access_time,'促销','promotion'),
-                        getListIcon(context,Icons.access_alarm,'调研','survey'),
-                        getListIcon(context,Icons.access_alarm,'反馈','feedBack'),
+                        getListIcon(context,Icons.record_voice_over,'推广','extension'),
+                        getListIcon(context,Icons.aspect_ratio,'营销','marketing'),
+                        getListIcon(context,Icons.work,'促销','promotion'),
+                        getListIcon(context,Icons.book,'调研','survey'),
+                        getListIcon(context,Icons.feedback,'反馈','feedBack'),
                       ]
                   ),
                 )

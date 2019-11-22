@@ -21,23 +21,28 @@ class _WaitSaleState extends State<WaitSale> {
           padding: EdgeInsets.all(8.0),
           child:Column(
             children: <Widget>[
-              Container(
-                padding: EdgeInsets.fromLTRB(0, 20, 0,20),
-                height:220,
-                child: CustomPaint(
-                  foregroundPainter: CyclePainter(
-                    totalCount: total,
-                    currentCount: current,
-                    lineColor: Colors.blueGrey,
-                    completeColor:Colors.blue,
-                    width: 25.0
-                  ),
-                  child: Container(
-                    alignment: Alignment.center,
-                    child: Text("待售 / 计划\n"+current.toString()+" / "+total.toString(),style: TextStyle(fontSize: 18),)
+              Card(
+                  elevation: 15.0,
+                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(14.0))),
+                  child:Container(
+                    padding: EdgeInsets.fromLTRB(0, 20, 0,20),
+                    height:220,
+                    child: CustomPaint(
+                        foregroundPainter: CyclePainter(
+                            totalCount: total,
+                            currentCount: current,
+                            lineColor: Colors.blueGrey,
+                            completeColor:Colors.blue,
+                            width: 25.0
+                        ),
+                        child: Container(
+                            alignment: Alignment.center,
+                            child: Text("待售 / 计划\n"+current.toString()+" / "+total.toString(),style: TextStyle(fontSize: 18),)
+                        )
+                    ),
                   )
-                ),
-              ),Expanded(
+              ),
+              Expanded(
                 child: ListView.builder(itemBuilder: (BuildContext context, int index){
                   return Card(
                     elevation: 15.0,
