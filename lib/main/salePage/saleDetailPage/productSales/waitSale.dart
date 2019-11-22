@@ -26,7 +26,7 @@ class _WaitSaleState extends State<WaitSale> {
                   shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(14.0))),
                   child:Container(
                     padding: EdgeInsets.fromLTRB(0, 20, 0,20),
-                    height:220,
+                    height:200,
                     child: CustomPaint(
                         foregroundPainter: CyclePainter(
                             totalCount: total,
