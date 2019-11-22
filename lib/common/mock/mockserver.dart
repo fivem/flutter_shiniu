@@ -5,9 +5,7 @@ import 'package:flutter_shiniu/common/mock/mockdata/newProductData.dart' as NewP
 import 'package:flutter_shiniu/common/mock/mockdata/waitSaleData.dart' as WaitSaleData;
 import 'package:flutter_shiniu/common/mock/mockdata/haveSaleData.dart' as HaveSaleData;
 import 'package:flutter_shiniu/common/mock/mockdata/returnProductData.dart' as ReturnProductData;
-
-
-
+import 'package:flutter_shiniu/common/mock/mockdata/feedBackData.dart' as FeedBackData;
 
 import 'package:mock_web_server/mock_web_server.dart';
 class MockServer{
@@ -36,7 +34,8 @@ class MockServer{
         case "/haveSale" : return mockHaveSaleData();
         //退货
         case "/returnProduct": return mockReturnProductData();
-
+        //反馈
+        case "/feedBack": return mockFeedBackData();
 
         default : return new MockResponse()..httpCode = 404;
       }
@@ -69,6 +68,12 @@ class MockServer{
       ..httpCode = 200
       ..body = json.encode(ReturnProductData.list);
   }
+  Future<MockResponse> mockFeedBackData() async{
+    return new MockResponse()
+      ..httpCode = 200
+      ..body = json.encode(FeedBackData.list);
+  }
+
 
   closeWebServer(){
     server.shutdown();
