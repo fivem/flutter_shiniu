@@ -1,4 +1,4 @@
-List list = [
+List data = [
   {
     'id':'1',
     'name':'牛肉卷',
