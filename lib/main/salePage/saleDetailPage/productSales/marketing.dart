@@ -42,20 +42,49 @@ class _MarketingState extends State<Marketing> {
 
   _tabBarOnTap(int index) async{
     currentIndex = index;
-   // var result = await Net().get('/marketting/'+index.toString());
+    var result = await Net().get('/marketting/'+index.toString());
+    print(result);
     setState(() {
-     // listData = result;
+      listData = result;
     });
   }
 
   buildTabBody(){
     print("current index"+currentIndex.toString());
-    return Text('curent index'+currentIndex.toString());
+    return Container(
+      child: ListView.builder(itemBuilder: (BuildContext context,int index){
+        return Container(
+          padding:EdgeInsets.all(8.0),
+          child: Card(
+            elevation: 15.0,
+            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(14.0))),
+            child:Stack(
+              children: <Widget>[
+                Container(
+                  height: 150,
+                  alignment: Alignment.topCenter,
+                  child:Image.asset(listData[index]['logo']),
+                ),                
+
+                Positioned(
+                  bottom:8,
+                  child:Text(listData[index]['plan']),
+                )
+              ],
+            )
+          ),
+        );
+      },itemCount: listData.length,)
+    );
+
+
+    //return Text('curent index'+currentIndex.toString());
   }
 
   @override
   void initState() {
     super.initState();
+    _tabBarOnTap(0);
   }
 
 }

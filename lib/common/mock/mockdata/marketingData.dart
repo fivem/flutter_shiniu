@@ -1,0 +1,34 @@
+List data1=[
+  {
+    'logo':'assets/dashang.jpg',
+    'name':'大商集团',
+    'plan':'199元促销礼包，包含2斤鲜牛肉，3份黑椒菲力牛排，5斤新鲜牛腩。',
+  },
+  {
+    'logo':'assets/xinlongjia1.jpg',
+    'name':'新隆嘉超市',
+    'plan':'19.9元促销礼包，1斤鲜牛肉，每人凭会员卡限购一份。',
+  },
+  {
+    'logo':'assets/carrefour.jpg',
+    'name':'家乐福',
+    'plan':'79元促销礼包，3份黑椒牛排，1斤鲜牛肉。',
+  },
+];
+List data2=[
+  {
+    'logo':'assets/tesco.jpg',
+    'name':'乐购',
+    'plan':'199元促销礼包，包含2斤鲜牛肉，3份黑椒菲力牛排，5斤新鲜牛腩。',
+  },
+  {
+    'logo':'assets/walmart.jpg',
+    'name':'新玛特',
+    'plan':'79元促销礼包，3份黑椒牛排，1斤鲜牛肉。',
+  },
+  {
+    'logo':'assets/xinglong.jpg',
+    'name':'兴隆',
+    'plan':'19.9元促销礼包，1斤鲜牛肉，每人凭会员卡限购一份。',
+  },
+];
