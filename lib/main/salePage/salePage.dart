@@ -21,12 +21,12 @@ class _SalePage extends State<SalePage>{
     this.context = context;
     return Scaffold(
       appBar: CommonAppBar(title:'销售',icon:Icons.home),
-      body: Column(
-        children: <Widget>[
-          SalesCard(),
-          SalesPlan(),
-          Expanded(
-            child: Column(
+      body:SingleChildScrollView(
+          child:Column(
+          children: <Widget>[
+            SalesCard(),
+            SalesPlan(),
+            Column(
               children: <Widget>[
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -50,9 +50,9 @@ class _SalePage extends State<SalePage>{
                   ],
                 )
               ],
-            ),
-          )
-        ],
+            )
+          ],
+        )
       )
     );
   }

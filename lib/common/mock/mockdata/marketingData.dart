@@ -2,7 +2,7 @@ List data1=[
   {
     'logo':'assets/dashang.jpg',
     'name':'大商集团',
-    'plan':'199元促销礼包，包含2斤鲜牛肉，3份黑椒菲力牛排，5斤新鲜牛腩。',
+    'plan':'199元促销礼包，2斤鲜牛肉，3份牛排，5斤牛腩。',
   },
   {
     'logo':'assets/xinlongjia1.jpg',
@@ -19,7 +19,7 @@ List data2=[
   {
     'logo':'assets/tesco.jpg',
     'name':'乐购',
-    'plan':'199元促销礼包，包含2斤鲜牛肉，3份黑椒菲力牛排，5斤新鲜牛腩。',
+    'plan':'199元促销礼包，2斤鲜牛肉，3份牛排，5斤牛腩。',
   },
   {
     'logo':'assets/walmart.jpg',
