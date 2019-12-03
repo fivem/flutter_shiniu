@@ -1,0 +1,21 @@
+List data = [
+  {
+    "name":"大商集团",
+    "img":"assets/dashang.jpg"
+  },{
+    "name":"家乐福",
+    "img":"assets/carrefour1.jpg"
+  },{
+    "name":"乐购",
+    "img":"assets/tesco.jpg"
+  },{
+    "name":"沃尔玛",
+    "img":"assets/walmart.jpg"
+  },{
+    "name":"兴隆",
+    "img":"assets/xinglong.jpg"
+  },{
+    "name":"新隆嘉",
+    "img":"assets/xinlongjia.jpg"
+  },
+];
