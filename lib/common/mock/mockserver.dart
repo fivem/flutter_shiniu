@@ -9,7 +9,7 @@ import 'package:flutter_shiniu/common/mock/mockdata/feedBackData.dart' as FeedBa
 import 'package:flutter_shiniu/common/mock/mockdata/extensionData.dart' as ExtensionData;
 import 'package:flutter_shiniu/common/mock/mockdata/marketingData.dart' as MarketingData;
 import 'package:flutter_shiniu/common/mock/mockdata/survey.dart' as Survey;
-
+import 'package:flutter_shiniu/common/mock/mockdata/promotion.dart' as Promotion;
 
 
 import 'package:mock_web_server/mock_web_server.dart';
@@ -50,6 +50,7 @@ class MockServer{
         case '/marketting/2': return mockData(MarketingData.data1);
         //调研
         case '/survey' : return mockData(Survey.data);
+        case '/promotion': return mockData(Promotion.data);
 
         default : return new MockResponse()..httpCode = 404;
       }
