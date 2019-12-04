@@ -8,12 +8,12 @@ import 'package:flutter_shiniu/common/mock/mockdata/returnProductData.dart' as R
 import 'package:flutter_shiniu/common/mock/mockdata/feedBackData.dart' as FeedBackData;
 import 'package:flutter_shiniu/common/mock/mockdata/extensionData.dart' as ExtensionData;
 import 'package:flutter_shiniu/common/mock/mockdata/marketingData.dart' as MarketingData;
-import 'package:flutter_shiniu/common/mock/mockdata/survey.dart' as Survey;
-import 'package:flutter_shiniu/common/mock/mockdata/promotion.dart' as Promotion;
-import 'package:flutter_shiniu/common/mock/mockdata/keyAccount.dart' as KeyAccount;
-import 'package:flutter_shiniu/common/mock/mockdata/potential.dart' as Potential;
-import 'package:flutter_shiniu/common/mock/mockdata/fixation.dart' as Fixation;
-import 'package:flutter_shiniu/common/mock/mockdata/fresh.dart' as Fresh;
+import 'package:flutter_shiniu/common/mock/mockdata/surveyData.dart' as Survey;
+import 'package:flutter_shiniu/common/mock/mockdata/promotionData.dart' as Promotion;
+import 'package:flutter_shiniu/common/mock/mockdata/keyAccountData.dart' as KeyAccount;
+import 'package:flutter_shiniu/common/mock/mockdata/potentialData.dart' as Potential;
+import 'package:flutter_shiniu/common/mock/mockdata/fixationData.dart' as Fixation;
+import 'package:flutter_shiniu/common/mock/mockdata/freshData.dart' as Fresh;
 
 import 'package:mock_web_server/mock_web_server.dart';
 class MockServer{
