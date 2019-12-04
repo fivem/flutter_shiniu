@@ -17,11 +17,41 @@ class _KeyAccountState extends State<KeyAccount> {
         child:ListView.builder(itemBuilder: (BuildContext context,int index){
           return Container(
             child: Card(
-              child: Stack(
+              elevation: 15.0,
+              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(14.0))),
+              child:Row(
                 children: <Widget>[
-                  Image.asset(listData[index]['img']),
-                  Positioned(
-                    child: Text(listData[index]['name']),
+                  Container(
+                      height:90,
+                      width:120,
+                      padding: EdgeInsets.all(10),
+                      decoration: new BoxDecoration(
+                        color: Colors.white,
+                        image: new DecorationImage(image: AssetImage(listData[index]['img']), fit: BoxFit.cover),
+                        shape: BoxShape.rectangle,              // <-- 这里需要设置为 rectangle
+                        borderRadius: new BorderRadius.all(
+                          const Radius.circular(10.0),        // <-- rectangle 时，BorderRadius 才有效
+                        ),
+                      )
+                  ),
+                  Expanded(
+                    child: Container(
+                      padding: EdgeInsets.fromLTRB(15.0, 0, 0, 0),
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                              alignment: Alignment.topLeft,
+                              padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
+                              child:Text(listData[index]["name"],style:TextStyle(fontSize: 25))
+                          ),
+                          Container(
+                              alignment: Alignment.centerLeft,
+                              padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
+                              child:Text(listData[index]["account"],style:TextStyle(fontSize: 15))
+                          )
+                        ],
+                      ),
+                    ),
                   )
                 ],
               ),
