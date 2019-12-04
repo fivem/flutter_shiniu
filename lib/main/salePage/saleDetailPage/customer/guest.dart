@@ -23,11 +23,11 @@ class _GuestState extends State<Guest> {
                 children: <Widget>[
                   Container(
                       height:90,
-                      width:120,
+                      width:100,
                       padding: EdgeInsets.all(10),
                       decoration: new BoxDecoration(
                         color: Colors.white,
-                        image: new DecorationImage(image: AssetImage(listData[index]['img']), fit: BoxFit.cover),
+                        image: new DecorationImage(image: AssetImage(listData[index]['img']), fit: BoxFit.fill),
                         shape: BoxShape.rectangle,              // <-- 这里需要设置为 rectangle
                         borderRadius: new BorderRadius.all(
                           const Radius.circular(10.0),        // <-- rectangle 时，BorderRadius 才有效
@@ -47,8 +47,19 @@ class _GuestState extends State<Guest> {
                           Container(
                               alignment: Alignment.centerLeft,
                               padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
-                              child:Text(listData[index]["inTime"],style:TextStyle(fontSize: 15))
-                          )
+                              child:Text(listData[index]["content"],style:TextStyle(fontSize: 15))
+                          ),
+                          Container(
+                              alignment: Alignment.centerLeft,
+                              padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
+                              child:Text(listData[index]["number"],style:TextStyle(fontSize: 15))
+                          ),
+                          Container(
+                            child: Text(listData[index]["inTime"],style:TextStyle(fontSize: 15)),
+                          ),
+                          Container(
+                            child:Text(listData[index]["offTime"],style:TextStyle(fontSize: 15)),
+                          ),
                         ],
                       ),
                     ),

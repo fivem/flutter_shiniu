@@ -27,7 +27,7 @@ class _FreshState extends State<Fresh> {
                         padding: EdgeInsets.all(10),
                         decoration: new BoxDecoration(
                           color: Colors.white,
-                          image: new DecorationImage(image: AssetImage(listData[index]['img']), fit: BoxFit.cover),
+                          image: new DecorationImage(image: AssetImage(listData[index]['img']), fit: BoxFit.fill),
                           shape: BoxShape.rectangle,              // <-- 这里需要设置为 rectangle
                           borderRadius: new BorderRadius.all(
                             const Radius.circular(10.0),        // <-- rectangle 时，BorderRadius 才有效
