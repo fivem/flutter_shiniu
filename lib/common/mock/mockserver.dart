@@ -12,6 +12,7 @@ import 'package:flutter_shiniu/common/mock/mockdata/survey.dart' as Survey;
 import 'package:flutter_shiniu/common/mock/mockdata/promotion.dart' as Promotion;
 import 'package:flutter_shiniu/common/mock/mockdata/keyAccount.dart' as KeyAccount;
 import 'package:flutter_shiniu/common/mock/mockdata/potential.dart' as Potential;
+import 'package:flutter_shiniu/common/mock/mockdata/fixation.dart' as Fixation;
 
 import 'package:mock_web_server/mock_web_server.dart';
 class MockServer{
@@ -54,6 +55,7 @@ class MockServer{
         case '/promotion': return mockData(Promotion.data);
         case '/keyAccount': return mockData(KeyAccount.data);
         case '/potential' : return mockData(Potential.data);
+        case '/fixation' : return mockData(Fixation.data);
         default : return new MockResponse()..httpCode = 404;
       }
     };
