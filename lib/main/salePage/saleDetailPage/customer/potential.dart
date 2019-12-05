@@ -22,8 +22,8 @@ class _PotentialState extends State<Potential> {
               child:Row(
                 children: <Widget>[
                   Container(
-                      height:100,
-                      width:180,
+                      height:90,
+                      width:120,
                       padding: EdgeInsets.all(10),
                       decoration: new BoxDecoration(
                         color: Colors.white,

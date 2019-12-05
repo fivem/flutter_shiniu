@@ -15,6 +15,7 @@ import 'package:flutter_shiniu/common/mock/mockdata/potentialData.dart' as Poten
 import 'package:flutter_shiniu/common/mock/mockdata/fixationData.dart' as Fixation;
 import 'package:flutter_shiniu/common/mock/mockdata/freshData.dart' as Fresh;
 import 'package:flutter_shiniu/common/mock/mockdata/guestData.dart' as Guest;
+import 'package:flutter_shiniu/common/mock/mockdata/relationshipsData.dart' as Relationships;
 
 import 'package:mock_web_server/mock_web_server.dart';
 class MockServer{
@@ -60,6 +61,7 @@ class MockServer{
         case '/fixation' : return mockData(Fixation.data);
         case '/fresh' : return mockData(Fresh.data);
         case '/guest' : return mockData(Guest.data);
+        case '/relationships' : return mockData(Relationships.data);
         default : return new MockResponse()..httpCode = 404;
       }
     };
