@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_shiniu/common/sqflite/sqfliteHandler.dart';
+import 'package:flutter_shiniu/main/producePage/productDetailPage/cowFormPage.dart';
 
 import '../../commonAppBar.dart';
 
@@ -15,7 +16,7 @@ class _WaitingParturitionState extends State<WaitingParturition> {
   Widget build(BuildContext context) {
     _addInfo(){
       Navigator.of(context).push(MaterialPageRoute(builder: (_){
-        return null;
+        return CowFormPage();
       }));
     }
     return Scaffold(
@@ -47,7 +48,7 @@ class _WaitingParturitionState extends State<WaitingParturition> {
     _getListData();
   }
   _getListData()async{
-    String tableSQL = "create table pdt_cow( ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+    String tableSQL = "create table pdt_cow( pkid test PRIMARY KEY , " +
         "cow_code text not null,qr_code blob, state text, period text,"+
         "birth_Day date,birth_count int,fertilization_Date date,"+
         "childbirth_date date,EDC date,immuno int,remark text)";
