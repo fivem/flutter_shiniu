@@ -15,10 +15,10 @@ class CowFormPage extends StatefulWidget {
 
 class _CowFormPageState extends State<CowFormPage> {
   final _formKey = GlobalKey<FormState>();
+  CowEntity cowEntity = new CowEntity();
 
   @override
   Widget build(BuildContext context) {
-    CowEntity cowEntity = new CowEntity();
     return Scaffold(
       appBar: CommonAppBar(title:'母牛'),
       body: Form(
@@ -43,25 +43,42 @@ class _CowFormPageState extends State<CowFormPage> {
                 labelText: '周期'
               ),
               onSaved: (String value) => cowEntity.period = value,
-            ),
-             GestureDetector(
-              child: Text(
-                  '出生日期'
-                /*decoration: InputDecoration(
-                    labelText: '出生日期'
-                ),
-                onSaved: (String value){
-
-                },*/
-              ),
-              onTap: ()async{
-                var result = await DatePicker().openDatePicker(context,cowEntity.birthDay);
-                setState((){
-                  cowEntity.birthDay = formatDate(result, [yyyy, "-", mm, "-", dd]);
-                  print(cowEntity.birthDay);
-                });
+              onChanged: (String value){
+                print(cowEntity.birthDay);
               },
-            )
+            ),
+             TextFormField(
+               decoration:InputDecoration(
+                   labelText: '出生日期',
+                   suffixIcon: IconButton(
+                       icon: Icon(
+                         Icons.date_range,
+                       ),
+                       onPressed: () {
+                         setState(() {
+                           DatePicker().openDatePicker(context,cowEntity.birthDay).then((result){
+                             cowEntity.birthDay = formatDate(result, [yyyy, "-", mm, "-", dd]);
+                           });
+                         });
+                       }),
+
+               ),
+               validator:(String value){
+                 String result = "";
+                 var dateReg = RegExp("20[0-9]{2}-[0-9]{2}-[0-9]{2}");
+                 if(!dateReg.hasMatch(value)){
+                   result = "请输入正确日期(例如:2019-02-20)";
+                 }else{
+                   try{
+                     DateTime.parse(value);
+                   }catch(e){
+                     result =  "非法日期";
+                   }
+                 }
+                 return result;
+               }
+             ),
+
 
           ],
         ),
