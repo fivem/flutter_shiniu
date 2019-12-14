@@ -16,10 +16,15 @@ class CowFormPage extends StatefulWidget {
 class _CowFormPageState extends State<CowFormPage> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController _birthDayController = TextEditingController(text: formatDate(DateTime.now(), [yyyy, "-", mm, "-", dd]));
+  TextEditingController _fertilizationDateController = TextEditingController(text: formatDate(DateTime.now(), [yyyy, "-", mm, "-", dd]));
+  TextEditingController _childbirthDateController = TextEditingController(text: formatDate(DateTime.now(), [yyyy, "-", mm, "-", dd]));
+  TextEditingController _EDCDateController = TextEditingController(text: formatDate(DateTime.now(), [yyyy, "-", mm, "-", dd]));
+
   CowEntity cowEntity = new CowEntity();
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: CommonAppBar(title:'母牛'),
       body: Form(
@@ -48,36 +53,22 @@ class _CowFormPageState extends State<CowFormPage> {
                 print(cowEntity.birthDay);
               },
             ),
-             //mark : InkWell is work but GestureDetector not work
-             InkWell(
-               child:TextFormField(
-                 enabled: false,
-                 controller: _birthDayController,
-                 decoration:InputDecoration(
-                   labelText:  "出生日期",
-                   suffixIcon: IconButton(
-                       icon: Icon(
-                         Icons.date_range,
-                         color: Colors.blue,
-                       ),
-                       onPressed: () {}),
-                 ),
+             TextFormField(
+               keyboardType: TextInputType.number,
+               decoration: InputDecoration(
+                   labelText: '生产次数'
                ),
-               onTap: (){
-                 //just show , can not edit
-                 if(widget.enable==true){
-                   setState(() {
-                     DatePicker().openDatePicker(context,cowEntity.birthDay).then((result){
-                       //choose date
-                       if(result!=null){
-                         cowEntity.birthDay = formatDate(result, [yyyy, "-", mm, "-", dd]);
-                         _birthDayController.text = cowEntity.birthDay;
-                       }
-                     });
-                   });
-                 }
-               }
+               onSaved: (String value) => cowEntity.period = value,
              ),
+             //mark : InkWell is work but GestureDetector not work
+             _buildDateElement(_birthDayController, '出生日期', cowEntity.birthDay,(String date)=>cowEntity.birthDay = date),
+
+             _buildDateElement(_fertilizationDateController, '受精日期', cowEntity.fertilizationDate,(String date)=>cowEntity.fertilizationDate = date),
+
+             _buildDateElement(_childbirthDateController, '分娩日期', cowEntity.childbirthDate,(String date)=>cowEntity.childbirthDate = date),
+
+             _buildDateElement(_EDCDateController, '预产日期', cowEntity.EDC,(String date)=>cowEntity.EDC = date),
+
              SizedBox(height: 60.0),
              Align(
                child:SizedBox(
@@ -108,6 +99,39 @@ class _CowFormPageState extends State<CowFormPage> {
           ],
         ),
       ),
+    );
+  }
+
+  _buildDateElement(controller,label,date,callback){
+    return InkWell(
+        child:TextFormField(
+          enabled: false,
+          controller: controller,
+          decoration:InputDecoration(
+            labelText:  label,
+            suffixIcon: IconButton(
+                icon: Icon(
+                  Icons.date_range,
+                  color: Colors.blue,
+                ),
+                onPressed: () {}),
+          ),
+        ),
+        onTap: (){
+          //just show , can not edit
+          if(widget.enable==true){
+            setState(() {
+              DatePicker().openDatePicker(context,date).then((result){
+                //choose date
+                if(result!=null){
+                  date = formatDate(result, [yyyy, "-", mm, "-", dd]);
+                  controller.text = date;
+                  callback(date);
+                }
+              });
+            });
+          }
+        }
     );
   }
 }
