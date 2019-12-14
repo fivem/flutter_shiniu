@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_shiniu/common/sqflite/sqfliteHandler.dart';
+import 'package:flutter_shiniu/main/producePage/entity/cowEntity.dart';
 import 'package:flutter_shiniu/main/producePage/productDetailPage/cowFormPage.dart';
 
 import '../../commonAppBar.dart';
@@ -16,7 +17,7 @@ class _WaitingParturitionState extends State<WaitingParturition> {
   Widget build(BuildContext context) {
     _addInfo(){
       Navigator.of(context).push(MaterialPageRoute(builder: (_){
-        return CowFormPage();
+        return CowFormPage(enable: false,cow:CowEntity(cowCode:'zt-1001',state: '正常',period: '待产期',birthCount: 3,birthDay: '2017-10-10',fertilizationDate: '2019-01-05',EDC: '2019-12-05',immuno: 1));
       }));
     }
     return Scaffold(

@@ -6,22 +6,31 @@ import 'package:flutter_shiniu/main/commonAppBar.dart';
 import 'package:flutter_shiniu/main/producePage/entity/cowEntity.dart';
 
 class CowFormPage extends StatefulWidget {
-
+  CowEntity cow;
   bool enable;
-  CowFormPage({this.enable = true});
+  CowFormPage({this.enable = true,this.cow});
   @override
-  _CowFormPageState createState() => _CowFormPageState();
+  _CowFormPageState createState() => _CowFormPageState(this.cow);
 }
 
 class _CowFormPageState extends State<CowFormPage> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _birthDayController = TextEditingController(text: formatDate(DateTime.now(), [yyyy, "-", mm, "-", dd]));
-  TextEditingController _fertilizationDateController = TextEditingController(text: formatDate(DateTime.now(), [yyyy, "-", mm, "-", dd]));
-  TextEditingController _childbirthDateController = TextEditingController(text: formatDate(DateTime.now(), [yyyy, "-", mm, "-", dd]));
-  TextEditingController _EDCDateController = TextEditingController(text: formatDate(DateTime.now(), [yyyy, "-", mm, "-", dd]));
-
+  TextEditingController _birthDayController;
+  TextEditingController _fertilizationDateController;
+  TextEditingController _childbirthDateController;
+  TextEditingController _EDCDateController;
   CowEntity cowEntity = new CowEntity();
-  int _immuno = 0;
+
+  _CowFormPageState(cow){
+    if(cow!=null){
+      cowEntity = cow;
+    }
+
+    _birthDayController = TextEditingController(text: cowEntity.birthDay==null ?formatDate( DateTime.now(), [yyyy, "-", mm, "-", dd]):cowEntity.birthDay);
+    _fertilizationDateController = TextEditingController();
+    _childbirthDateController = TextEditingController();
+    _EDCDateController = TextEditingController();
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -34,6 +43,7 @@ class _CowFormPageState extends State<CowFormPage> {
           children: <Widget>[
              TextFormField(
                enabled: widget.enable,
+               initialValue: cowEntity.cowCode,
                decoration: InputDecoration(
                 labelText: '编号',
                ),
@@ -41,6 +51,7 @@ class _CowFormPageState extends State<CowFormPage> {
             ),
             TextFormField(
               enabled: widget.enable,
+              initialValue: cowEntity.state,
               decoration: InputDecoration(
                 labelText: '状态'
               ),
@@ -48,6 +59,7 @@ class _CowFormPageState extends State<CowFormPage> {
             ),
             TextFormField(
               enabled: widget.enable,
+              initialValue: cowEntity.period,
               decoration: InputDecoration(
                 labelText: '周期'
               ),
@@ -58,6 +70,7 @@ class _CowFormPageState extends State<CowFormPage> {
             ),
             TextFormField(
              enabled: widget.enable,
+             initialValue: cowEntity.birthDay,
              keyboardType: TextInputType.number,
              decoration: InputDecoration(
                  labelText: '生产次数'
@@ -83,11 +96,11 @@ class _CowFormPageState extends State<CowFormPage> {
                  child:Align(
                  alignment: Alignment.centerRight,
                  child: Switch(
-                   value: this._immuno==0?false:true,
+                   value: cowEntity.immuno==1?true:false,
                    onChanged: (value){
                      if(widget.enable!=false){
                        setState(() {
-                         this._immuno = value?1:0;
+                         cowEntity.immuno = value?1:0;
                        });
                      }
                    },
@@ -99,30 +112,31 @@ class _CowFormPageState extends State<CowFormPage> {
             ),
 
             SizedBox(height: 15.0),
-            Align(
-             child:SizedBox(
-               height: 45.0,
-               width: 270.0,
-               child: RaisedButton(
-                 child: Text(
+            Visibility(
+              visible: widget.enable,
+              child:Align(
+              child:SizedBox(
+                height: 45.0,
+                width: 270.0,
+                child: RaisedButton(
+                  child: Text(
                    '保    存',
                    style: Theme.of(context).primaryTextTheme.headline,
-                 ),
-                 color: Colors.blue,
-                 elevation:0,
-                 highlightElevation:0,
-                 disabledElevation:0,
-                   shape: StadiumBorder(side: BorderSide(color:Colors.blue)),
-                   onPressed: (){
-                   if(_formKey.currentState.validate()){
-                     _formKey.currentState.save();
+                  ),
+                  color: Colors.blue,
+                  elevation:0,
+                   highlightElevation:0,
+                  disabledElevation:0,
+                    shape: StadiumBorder(side: BorderSide(color:Colors.blue)),
+                    onPressed: (){
+                    if(_formKey.currentState.validate()){
+                      _formKey.currentState.save();
+                    }
                    }
-                 }
-               ),
-             )
-           )
-
-
+                ),
+              )
+            )
+          )
           ],
         ),
       ),
