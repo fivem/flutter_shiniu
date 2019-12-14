@@ -109,7 +109,7 @@ class _LoginPage extends State<LoginPage>{
                           }));
                         }
                       },
-                      shape: StadiumBorder(side: BorderSide()),
+                      shape: StadiumBorder(side: BorderSide(color:Colors.blue)),
                     ),
                   ),
                 ),
