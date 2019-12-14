@@ -8,14 +8,14 @@ import 'package:flutter_shiniu/main/producePage/entity/cowEntity.dart';
 class CowFormPage extends StatefulWidget {
 
   bool enable;
-  CowFormPage({this.enable});
+  CowFormPage({this.enable = true});
   @override
   _CowFormPageState createState() => _CowFormPageState();
 }
 
 class _CowFormPageState extends State<CowFormPage> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _birthDayController = TextEditingController();
+  TextEditingController _birthDayController = TextEditingController(text: formatDate(DateTime.now(), [yyyy, "-", mm, "-", dd]));
   CowEntity cowEntity = new CowEntity();
 
   @override
@@ -48,6 +48,7 @@ class _CowFormPageState extends State<CowFormPage> {
                 print(cowEntity.birthDay);
               },
             ),
+             //mark : InkWell is work but GestureDetector not work
              InkWell(
                child:TextFormField(
                  enabled: false,
@@ -59,37 +60,22 @@ class _CowFormPageState extends State<CowFormPage> {
                          Icons.date_range,
                          color: Colors.blue,
                        ),
-                       onPressed: () {
-
-                       }),
-
+                       onPressed: () {}),
                  ),
-                   validator:(String value){
-                     String result = null;
-                     var dateReg = RegExp("20[0-9]{2}-[0-9]{2}-[0-9]{2}");
-                     if(!dateReg.hasMatch(value)){
-                       result = "请输入正确日期(例如:2019-02-20)";
-                     }else{
-                       try{
-                         var temp = DateTime.parse(value);
-                         print(temp);
-                       }catch(e){
-                         result =  "非法日期";
-                       }
-                     }
-                     return result;
-                   }
                ),
                onTap: (){
-                 setState(() {
-                   DatePicker().openDatePicker(context,cowEntity.birthDay).then((result){
-                     //choose date
-                     if(result!=null){
-                       cowEntity.birthDay = formatDate(result, [yyyy, "-", mm, "-", dd]);
-                       _birthDayController.text = cowEntity.birthDay;
-                     }
+                 //just show , can not edit
+                 if(widget.enable==true){
+                   setState(() {
+                     DatePicker().openDatePicker(context,cowEntity.birthDay).then((result){
+                       //choose date
+                       if(result!=null){
+                         cowEntity.birthDay = formatDate(result, [yyyy, "-", mm, "-", dd]);
+                         _birthDayController.text = cowEntity.birthDay;
+                       }
+                     });
                    });
-                 });
+                 }
                }
              ),
              SizedBox(height: 60.0),
@@ -99,7 +85,7 @@ class _CowFormPageState extends State<CowFormPage> {
                  width: 270.0,
                  child: RaisedButton(
                    child: Text(
-                     '登    录',
+                     '保    存',
                      style: Theme.of(context).primaryTextTheme.headline,
                    ),
                    color: Colors.blue,
