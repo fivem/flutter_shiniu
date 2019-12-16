@@ -6,6 +6,7 @@ class CommonEntity{
    String createDate;
    String createUser;
    int deleteFlag;
+   bool selected = false;
    CommonEntity({this.pkid,this.createDate,this.createUser,this.deleteFlag}){
       if(this.pkid == null){
         this.pkid = Uuid().v1();
