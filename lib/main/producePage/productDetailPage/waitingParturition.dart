@@ -74,6 +74,13 @@ class _WaitingParturitionState extends State<WaitingParturition> {
     super.initState();
     _getListData();
   }
+  @override
+  void deactivate() {
+    var bool = ModalRoute.of(context).isCurrent;
+    if (bool) {
+      _dataTableSource = CowDataSource();
+    }
+  }
   _getListData()async{
    /* CowEntity cowEntity = new CowEntity(cowCode:'zt-001',state:'0',period:'1',birthDay:'2019-11-01',birthCount:3,
         fertilizationDate:'2019-11-02',childbirthDate:'2019-11-03',EDC:'2019-11-04',immuno:0,remark:'good girl');

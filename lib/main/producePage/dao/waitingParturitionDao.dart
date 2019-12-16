@@ -15,9 +15,12 @@ class WaitingParturitionDao{
   }
 
   insert(CowEntity cowEntity) async{
-    var id = await handler.insert("insert into pdt_cow values('"+cowEntity.pkid+"','"+cowEntity.cowCode+"','"+
-        cowEntity.state+"','"+cowEntity.period+"','"+cowEntity.birthDay+"',"+cowEntity.birthCount.toString()+",'"
-        +cowEntity.fertilizationDate+"','"+cowEntity.childbirthDate+"','"+cowEntity.EDC+"',"+cowEntity.immuno.toString()+",'"+cowEntity.remark+"','"+cowEntity.createDate+"','"+cowEntity.createUser+"',"+cowEntity.deleteFlag.toString()+")");
+    String sql = "insert into pdt_cow values('${cowEntity.pkid}','${cowEntity.cowCode}',"
+        "'${cowEntity.state}','${cowEntity.period}','${cowEntity.birthDay}',${cowEntity.birthCount.toString()},'"
+        "${cowEntity.fertilizationDate}','${cowEntity.childbirthDate}','"
+        "${cowEntity.EDC}',${cowEntity.immuno.toString()},'${cowEntity.remark}','${cowEntity.createDate}','"
+        "${cowEntity.createUser}',${cowEntity.deleteFlag.toString()})";
+    var id = await handler.insert(sql);
     return id;
   }
 
@@ -27,7 +30,7 @@ class WaitingParturitionDao{
       condition = " where 1=1 ";
       if(cow.cowCode!='' && cow.cowCode!=null){
         condition += " and ";
-        condition += " cow_code = '"+cow.cowCode+"'";
+        condition += " cow_code = '${cow.cowCode}'";
       }
     }
     var result = await handler.query("select * from pdt_cow" +condition);

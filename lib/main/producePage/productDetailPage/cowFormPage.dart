@@ -3,6 +3,7 @@ import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shiniu/common/utils/datePicker.dart';
 import 'package:flutter_shiniu/main/commonAppBar.dart';
+import 'package:flutter_shiniu/main/producePage/dao/waitingParturitionDao.dart';
 import 'package:flutter_shiniu/main/producePage/entity/cowEntity.dart';
 
 class CowFormPage extends StatefulWidget {
@@ -128,11 +129,26 @@ class _CowFormPageState extends State<CowFormPage> {
                    highlightElevation:0,
                   disabledElevation:0,
                     shape: StadiumBorder(side: BorderSide(color:Colors.blue)),
-                    onPressed: (){
+                    onPressed: ()async{
                       if(_formKey.currentState.validate()){
                         _formKey.currentState.save();
                       }
-
+                      var id = await WaitingParturitionDao().insert(cowEntity);
+                      if(id>0){
+                        showDialog(
+                            context: context,
+                            child: new AlertDialog(
+                              title: new Text("标题"),
+                              content: new Text("内容区域"),
+                              actions: <Widget>[
+                                new FlatButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: new Text("确定")),
+                              ],
+                            ));
+                      }
                    }
                 ),
               )
