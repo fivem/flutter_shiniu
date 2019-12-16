@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_shiniu/common/sqflite/sqfliteHandler.dart';
+import 'package:flutter_shiniu/main/producePage/dao/waitingParturitionDao.dart';
 import 'package:flutter_shiniu/main/producePage/entity/cowEntity.dart';
 import 'package:flutter_shiniu/main/producePage/productDetailPage/cowFormPage.dart';
 
@@ -49,16 +50,17 @@ class _WaitingParturitionState extends State<WaitingParturition> {
     _getListData();
   }
   _getListData()async{
-    String tableSQL = "create table pdt_cow( pkid test PRIMARY KEY , " +
-        "cow_code text not null,qr_code blob, state text, period text,"+
-        "birth_Day date,birth_count int,fertilization_Date date,"+
-        "childbirth_date date,EDC date,immuno int,remark text)";
-    SqfliteHandler handler = new SqfliteHandler(tableName:'pdt_cow',tableSQL:tableSQL);
-    handler.reCreatTable();
-    var id = await handler.insert("insert into pdt_cow values(0,'zt-001',null,'0','1','2019-11-01',3,'2019-11-02','2019-11-03','2019-11-04',0,'good girl')");
+    CowEntity cowEntity = new CowEntity(cowCode:'zt-001',state:'0',period:'1',birthDay:'2019-11-01',birthCount:3,
+        fertilizationDate:'2019-11-02',childbirthDate:'2019-11-03',EDC:'2019-11-04',immuno:0,remark:'good girl');
+    WaitingParturitionDao().insert(cowEntity).then((id){
 
-    var result = await handler.query("select * from pdt_cow");
-    print(result);
+       WaitingParturitionDao().query(cowEntity).then((result){
+        print(result);
+
+      });
+    });
+
+
   }
 
 }
