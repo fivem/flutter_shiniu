@@ -22,7 +22,7 @@ class _WaitingParturitionState extends State<WaitingParturition> {
     _dataTableSource.buildContext(context);
     _addInfo(){
       Navigator.of(context).push(MaterialPageRoute(builder: (_){
-        return CowFormPage(enable: false,cow:CowEntity(cowCode:'zt-1001',state: '正常',period: '待产期',birthCount: 3,birthDay: '2017-10-10',fertilizationDate: '2019-01-05',EDC: '2019-12-05',immuno: 1));
+        return CowFormPage(enable: true,cow:CowEntity(cowCode:'zt-1001',state: '正常',period: '待产期',birthCount: 3,birthDay: '2017-10-10',fertilizationDate: '2019-01-05',EDC: '2019-12-05',immuno: 1));
       }));
     }
     void _sort<T>(Comparable<T> getField(CowEntity d), int columnIndex, bool ascending) {
@@ -40,15 +40,16 @@ class _WaitingParturitionState extends State<WaitingParturition> {
           PaginatedDataTable(
             header: Text('母牛集合'),
               actions: <Widget>[/*跟header 在一条线的antion*/
-                IconButton(icon: Icon(Icons.remove), onPressed: null),
-                IconButton(icon: Icon(Icons.edit), onPressed: null),
-                IconButton(icon: Icon(Icons.add), onPressed: null),
+                IconButton(icon: Icon(Icons.edit,color:Colors.blue), onPressed: null),
+                IconButton(icon: Icon(Icons.remove,color:Colors.blue), onPressed: null),
+                IconButton(icon: Icon(Icons.add,color:Colors.blue), onPressed: _addInfo),
               ],
               columns:<DataColumn>[
                 DataColumn(label: Text('编号'),onSort:
                     (int columnIndex,bool ascending)=>_sort((CowEntity cow)=>cow.cowCode,columnIndex,ascending)),
                 DataColumn(label: Text('预产期')),
                 DataColumn(label: Text('状态')),
+                DataColumn(label: Text('是否免疫')),
               ],
               source : _dataTableSource,
               onPageChanged : null,

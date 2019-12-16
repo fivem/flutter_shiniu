@@ -129,9 +129,10 @@ class _CowFormPageState extends State<CowFormPage> {
                   disabledElevation:0,
                     shape: StadiumBorder(side: BorderSide(color:Colors.blue)),
                     onPressed: (){
-                    if(_formKey.currentState.validate()){
-                      _formKey.currentState.save();
-                    }
+                      if(_formKey.currentState.validate()){
+                        _formKey.currentState.save();
+                      }
+
                    }
                 ),
               )

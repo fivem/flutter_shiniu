@@ -28,6 +28,8 @@ class CowDataSource extends DataTableSource{
         )),
         DataCell(Text('${cow.EDC}')),
         DataCell(Text('${cow.state=="0"?"正常":"异常"}')),
+        DataCell(Text('${cow.state=="0"?"否":"是"}')),
+
       ],
       selected: cow.selected,
       index: index,
