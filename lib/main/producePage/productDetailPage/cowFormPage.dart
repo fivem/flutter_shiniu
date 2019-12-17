@@ -139,14 +139,12 @@ class _CowFormPageState extends State<CowFormPage> {
                         showDialog(
                             context: context,
                             child: new AlertDialog(
-                              title: new Text("标题"),
-                              content: new Text("内容区域"),
+                              title: new Text("提示"),
+                              content: new Text("保存成功"),
                               actions: <Widget>[
                                 new FlatButton(
                                     onPressed: () {
-                                      Navigator.of(context).push(MaterialPageRoute(builder: (context){
-                                        return WaitingParturition();
-                                      }));
+                                       Navigator.of(context).popUntil(ModalRoute.withName("/WaitingParturition"));
                                     },
                                     child: new Text("确定")),
                               ],

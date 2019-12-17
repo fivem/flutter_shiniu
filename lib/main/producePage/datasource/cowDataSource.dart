@@ -23,7 +23,7 @@ class CowDataSource extends DataTableSource{
           onTap: (){
             Navigator.of(context).push(MaterialPageRoute(builder: (_){
               return CowFormPage(enable: false,cow:cow);
-            }));
+            },settings:RouteSettings(name: '/CowFormPage')));
           }
         )),
         DataCell(Text('${cow.EDC}')),

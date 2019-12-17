@@ -23,7 +23,7 @@ class _WaitingParturitionState extends State<WaitingParturition> {
     _addInfo(){
       Navigator.of(context).push(MaterialPageRoute(builder: (_){
         return CowFormPage(enable: true,cow:CowEntity(cowCode:'zt-1001',state: '正常',period: '待产期',birthCount: 3,birthDay: '2017-10-10',fertilizationDate: '2019-01-05',EDC: '2019-12-05',immuno: 1));
-      }));
+      },settings: RouteSettings(name: '/CowFormPage')));
     }
     void _sort<T>(Comparable<T> getField(CowEntity d), int columnIndex, bool ascending) {
       _dataTableSource.sortData<T>(getField, ascending);
