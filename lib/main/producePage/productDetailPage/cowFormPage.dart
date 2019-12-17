@@ -5,6 +5,7 @@ import 'package:flutter_shiniu/common/utils/datePicker.dart';
 import 'package:flutter_shiniu/main/commonAppBar.dart';
 import 'package:flutter_shiniu/main/producePage/dao/waitingParturitionDao.dart';
 import 'package:flutter_shiniu/main/producePage/entity/cowEntity.dart';
+import 'package:flutter_shiniu/main/producePage/productDetailPage/waitingParturition.dart';
 
 class CowFormPage extends StatefulWidget {
   CowEntity cow;
@@ -143,7 +144,9 @@ class _CowFormPageState extends State<CowFormPage> {
                               actions: <Widget>[
                                 new FlatButton(
                                     onPressed: () {
-                                      Navigator.of(context).popUntil(ModalRoute.withName("/WaitingParturition"));
+                                      Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                                        return WaitingParturition();
+                                      }));
                                     },
                                     child: new Text("确定")),
                               ],

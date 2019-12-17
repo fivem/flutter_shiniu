@@ -52,7 +52,9 @@ class _ProducePage extends State<ProducePage>{
   }
   getListIcon(BuildContext context,IconData icon,String text,Widget target){
     _handleTap(){
-      Navigator.of(context).pushNamed('/WaitingParturition');
+      Navigator.of(context).push(MaterialPageRoute(builder:(context){
+        return target;
+      }));
     }
     return GestureDetector(
       onTap:_handleTap,
