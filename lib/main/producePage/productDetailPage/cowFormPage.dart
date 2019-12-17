@@ -143,7 +143,7 @@ class _CowFormPageState extends State<CowFormPage> {
                               actions: <Widget>[
                                 new FlatButton(
                                     onPressed: () {
-                                      Navigator.of(context).pop();
+                                      Navigator.of(context).popUntil(ModalRoute.withName("/WaitingParturition"));
                                     },
                                     child: new Text("确定")),
                               ],

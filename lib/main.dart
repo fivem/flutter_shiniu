@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_shiniu/common/router/router.dart';
 import 'package:flutter_shiniu/user/login.dart';
 
 
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate
       ],
+      routes: Router().getRouter(context),
       supportedLocales: [
         const Locale("zh", "CH"),
         const Locale("en", "US")

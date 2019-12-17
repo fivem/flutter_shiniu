@@ -21,9 +21,7 @@ class CowDataSource extends DataTableSource{
       cells: <DataCell>[
         DataCell(GestureDetector(child: Text('${cow.cowCode}',style: TextStyle(color: Colors.blue),),
           onTap: (){
-            Navigator.of(context).push(MaterialPageRoute(builder: (_){
-              return CowFormPage(enable: false,cow:cow);
-            }));
+            Navigator.of(context).pushNamed('/CowFormPage');
           }
         )),
         DataCell(Text('${cow.EDC}')),
