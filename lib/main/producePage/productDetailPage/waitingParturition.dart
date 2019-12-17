@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_shiniu/main/producePage/dao/waitingParturitionDao.dart';
 import 'package:flutter_shiniu/main/producePage/datasource/cowDataSource.dart';
 import 'package:flutter_shiniu/main/producePage/entity/cowEntity.dart';
 import 'package:flutter_shiniu/main/producePage/productDetailPage/cowFormPage.dart';
@@ -22,8 +23,38 @@ class _WaitingParturitionState extends State<WaitingParturition> {
     _dataTableSource.buildContext(context);
     _addInfo(){
       Navigator.of(context).push(MaterialPageRoute(builder: (_){
-        return CowFormPage(enable: true,cow:CowEntity(cowCode:'zt-1001',state: '正常',period: '待产期',birthCount: 3,birthDay: '2017-10-10',fertilizationDate: '2019-01-05',EDC: '2019-12-05',immuno: 1));
+        return CowFormPage(enable: true);
       },settings: RouteSettings(name: '/CowFormPage')));
+    }
+    _deleteInfo(){
+      assert(_dataTableSource.listData!=null);
+      showDialog(
+          context: context,
+          child: new AlertDialog(
+            title: new Text("提示"),
+            content: new Text("是否删除选中数据"),
+            actions: <Widget>[
+              new FlatButton(
+                  onPressed: () {
+                    _dataTableSource.listData.forEach((cow){
+                      if(cow.selected == true){
+                        WaitingParturitionDao().delete(cow);
+                      }
+                    });
+                    setState((){
+                      _dataTableSource = CowDataSource();
+                    });
+                    Navigator.of(context).pop();
+                  },
+                  child: new Text("确定")),
+              new FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: new Text("取消")),
+            ],
+          ));
+
     }
     void _sort<T>(Comparable<T> getField(CowEntity d), int columnIndex, bool ascending) {
       _dataTableSource.sortData<T>(getField, ascending);
@@ -35,13 +66,15 @@ class _WaitingParturitionState extends State<WaitingParturition> {
     return Scaffold(
       appBar: CommonAppBar(title:'待产'),
       body: ListView(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(4.0),
         children: <Widget>[
           PaginatedDataTable(
-            header: Text('母牛集合'),
+            headingRowHeight:30,
+            dataRowHeight:38,
+            header: SizedBox(height: 30,child: Text('母牛集合')),
               actions: <Widget>[/*跟header 在一条线的antion*/
                 IconButton(icon: Icon(Icons.edit,color:Colors.blue), onPressed: null),
-                IconButton(icon: Icon(Icons.remove,color:Colors.blue), onPressed: null),
+                IconButton(icon: Icon(Icons.remove,color:Colors.blue), onPressed: _deleteInfo),
                 IconButton(icon: Icon(Icons.add,color:Colors.blue), onPressed: _addInfo),
               ],
               columns:<DataColumn>[
@@ -72,7 +105,6 @@ class _WaitingParturitionState extends State<WaitingParturition> {
   @override
   void initState() {
     super.initState();
-    _getListData();
   }
   @override
   void deactivate() {
@@ -81,22 +113,4 @@ class _WaitingParturitionState extends State<WaitingParturition> {
       _dataTableSource = CowDataSource();
     }
   }
-  _getListData()async{
-   /* CowEntity cowEntity = new CowEntity(cowCode:'zt-001',state:'0',period:'1',birthDay:'2019-11-01',birthCount:3,
-        fertilizationDate:'2019-11-02',childbirthDate:'2019-11-03',EDC:'2019-11-04',immuno:0,remark:'good girl');
-    WaitingParturitionDao().query(cowEntity).then((result){
-      listData = result;
-      print(listData);
-    });*/
-/*    WaitingParturitionDao().insert(cowEntity).then((id){
-
-       WaitingParturitionDao().query(cowEntity).then((result){
-        print(result);
-
-      });
-    });*/
-
-
-  }
-
 }

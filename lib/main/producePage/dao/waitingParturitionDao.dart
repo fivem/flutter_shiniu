@@ -11,7 +11,7 @@ class WaitingParturitionDao{
   SqfliteHandler handler;
   WaitingParturitionDao(){
     handler = new SqfliteHandler(tableName:'pdt_cow',tableSQL:this.tableSQL);
-   // handler.reCreatTable();
+    //handler.reCreatTable();
   }
 
   insert(CowEntity cowEntity) async{
@@ -23,11 +23,15 @@ class WaitingParturitionDao{
     var id = await handler.insert(sql);
     return id;
   }
+  delete(CowEntity cowEntity) async{
+    String sql = "delete from pdt_cow where pkid = '${cowEntity.pkid}'";
+    var id = await handler.update(sql);
+  }
 
   Future<List<CowEntity>> query(CowEntity cow)async{
     String condition = "";
     if(cow!=null){
-      condition = " where 1=1 ";
+      condition = " where delete_flag = 0 ";
       if(cow.cowCode!='' && cow.cowCode!=null){
         condition += " and ";
         condition += " cow_code = '${cow.cowCode}'";
