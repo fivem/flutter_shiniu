@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shiniu/common/utils/enumTransfer.dart';
 import 'package:flutter_shiniu/main/producePage/dao/waitingParturitionDao.dart';
 import 'package:flutter_shiniu/main/producePage/entity/cowEntity.dart';
 import 'package:flutter_shiniu/main/producePage/productDetailPage/cowFormPage.dart';
@@ -27,7 +28,7 @@ class CowDataSource extends DataTableSource{
           }
         )),
         DataCell(Text('${cow.EDC}')),
-        DataCell(Text('${cow.state=="0"?"正常":"异常"}')),
+        DataCell(Text('${EnumTransfer.getStateText(cow.state)}')),
         DataCell(Text('${cow.immuno=="0"?"否":"是"}')),
 
       ],

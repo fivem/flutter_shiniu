@@ -64,15 +64,6 @@ class _CowFormPageState extends State<CowFormPage> {
                });
              }),
             TextFormField(
-              enabled: false,
-              initialValue: cowEntity.state,
-              decoration: InputDecoration(
-                labelText: '状态'
-              ),
-              onSaved: (String value) => cowEntity.state = value,
-
-            ),
-            TextFormField(
               enabled: widget.enable,
               initialValue: cowEntity.period,
               decoration: InputDecoration(

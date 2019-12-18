@@ -13,7 +13,7 @@ class CowEntity extends CommonEntity{
   int immuno;
   String remark;
 
-  CowEntity({pkid,this.cowCode, this.state, this.period, this.birthDay,
+  CowEntity({pkid,this.cowCode, this.state='0', this.period, this.birthDay,
       this.birthCount, this.fertilizationDate, this.childbirthDate, this.EDC,
       this.immuno, this.remark,createDate,createUser,deleteFlag});
 
