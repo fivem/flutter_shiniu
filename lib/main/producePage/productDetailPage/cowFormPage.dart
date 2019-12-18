@@ -2,6 +2,7 @@
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shiniu/common/utils/datePicker.dart';
+import 'package:flutter_shiniu/common/utils/enumTransfer.dart';
 import 'package:flutter_shiniu/main/commonAppBar.dart';
 import 'package:flutter_shiniu/main/producePage/dao/waitingParturitionDao.dart';
 import 'package:flutter_shiniu/main/producePage/entity/cowEntity.dart';
@@ -21,7 +22,9 @@ class _CowFormPageState extends State<CowFormPage> {
   TextEditingController _fertilizationDateController;
   TextEditingController _childbirthDateController;
   TextEditingController _EDCDateController;
+  TextEditingController _stateController;
   CowEntity cowEntity = new CowEntity();
+  String stateValue;
 
   _CowFormPageState(cow){
     if(cow!=null){
@@ -29,6 +32,7 @@ class _CowFormPageState extends State<CowFormPage> {
     }
 
     _birthDayController = TextEditingController(text: cowEntity.birthDay==null ?formatDate( DateTime.now(), [yyyy, "-", mm, "-", dd]):cowEntity.birthDay);
+    _stateController = TextEditingController(text:EnumTransfer.getStateText(stateValue));
     _fertilizationDateController = TextEditingController();
     _childbirthDateController = TextEditingController();
     _EDCDateController = TextEditingController();
@@ -38,6 +42,7 @@ class _CowFormPageState extends State<CowFormPage> {
 
     return Scaffold(
       appBar: CommonAppBar(title:'母牛'),
+
       body: Form(
         key : _formKey,
         child: ListView(
@@ -51,13 +56,21 @@ class _CowFormPageState extends State<CowFormPage> {
                ),
                onSaved: (String value) => cowEntity.cowCode = value,
             ),
+             _buildRadioListElement(context,_stateController,'状态',stateValue,(value){
+               setState(() {
+                 _stateController.text = EnumTransfer.getStateText(value);
+                 stateValue = value;
+                 cowEntity.state = value;
+               });
+             }),
             TextFormField(
-              enabled: widget.enable,
+              enabled: false,
               initialValue: cowEntity.state,
               decoration: InputDecoration(
                 labelText: '状态'
               ),
               onSaved: (String value) => cowEntity.state = value,
+
             ),
             TextFormField(
               enabled: widget.enable,
@@ -67,7 +80,6 @@ class _CowFormPageState extends State<CowFormPage> {
               ),
               onSaved: (String value) => cowEntity.period = value,
               onChanged: (String value){
-                print(cowEntity.birthDay);
               },
             ),
             TextFormField(
@@ -160,6 +172,52 @@ class _CowFormPageState extends State<CowFormPage> {
       ),
     );
   }
+  _buildRadioListElement(context,controller,label,initValue,callback){
+    return InkWell(
+      child: TextFormField(
+        enabled: false,
+        controller: controller,
+        decoration: InputDecoration(
+          labelText: label,
+          suffixIcon: IconButton(icon: Icon(Icons.keyboard_arrow_down,color: Colors.blue,), onPressed: null)
+        ),
+      ),
+      onTap: (){
+        setState((){
+
+        showDialog(
+            context: context,
+            child: new AlertDialog(
+              //title: new Text("请选择"),
+              content:SizedBox(
+                height: 230,
+                width: 200,
+                child: Column(
+                  children: <Widget>[
+                    BuildRadioListTile(callback:callback,initValue: initValue)
+                  ],
+                )
+              ),
+
+              actions: <Widget>[
+                new FlatButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: new Text("确定")),
+              ],
+            )
+        );
+
+
+        });
+      },
+    );
+  }
+
+
+
+
 
   _buildDateElement(controller,label,date,callback){
     return InkWell(
@@ -191,6 +249,42 @@ class _CowFormPageState extends State<CowFormPage> {
             });
           }
         }
+    );
+  }
+}
+
+
+class BuildRadioListTile extends StatefulWidget {
+  Function callback;
+  String initValue;
+  BuildRadioListTile({this.callback,this.initValue});
+  @override
+  _BuildRadioListTileState createState() => _BuildRadioListTileState();
+}
+
+class _BuildRadioListTileState extends State<BuildRadioListTile> {
+  String stateValue ;
+  @override
+  Widget build(BuildContext context) {
+    if(stateValue == null){
+      stateValue = widget.initValue == ""||widget.initValue==null ? "0" : widget.initValue;
+    }
+    return  Column(
+      children: List<RadioListTile<String>>.generate(4, (int index){
+      return RadioListTile<String>(
+          activeColor:Colors.blue,
+          title:Text(EnumTransfer.getStateText('${index}')),
+          //subtitle:Text('subTitle'),
+          selected:stateValue == '${index}',
+          value: '${index}',
+          groupValue: stateValue,
+          onChanged: (value)=> setState((){
+            stateValue = value;
+            widget.callback(value);
+          })
+        );
+      },
+    )
     );
   }
 }

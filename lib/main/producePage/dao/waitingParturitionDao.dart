@@ -11,7 +11,7 @@ class WaitingParturitionDao{
   SqfliteHandler handler;
   WaitingParturitionDao(){
     handler = new SqfliteHandler(tableName:'pdt_cow',tableSQL:this.tableSQL);
-    //handler.reCreatTable();
+  //  handler.reCreatTable();
   }
 
   insert(CowEntity cowEntity) async{
