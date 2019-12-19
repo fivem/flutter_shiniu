@@ -75,20 +75,17 @@ class _CowFormPageState extends State<CowFormPage> {
             ),
             TextFormField(
              enabled: widget.enable,
-             initialValue: cowEntity.birthDay,
+             initialValue: '${cowEntity.birthCount}',
              keyboardType: TextInputType.number,
              decoration: InputDecoration(
                  labelText: '生产次数'
              ),
-             onSaved: (String value) => cowEntity.period = value,
+             onSaved: (String value) => cowEntity.birthCount = int.parse(value),
             ),
            //mark : InkWell is work but GestureDetector not work
             _buildDateElement(_birthDayController, '出生日期', cowEntity.birthDay,(String date)=>cowEntity.birthDay = date),
-
             _buildDateElement(_fertilizationDateController, '受精日期', cowEntity.fertilizationDate,(String date)=>cowEntity.fertilizationDate = date),
-
             _buildDateElement(_childbirthDateController, '分娩日期', cowEntity.childbirthDate,(String date)=>cowEntity.childbirthDate = date),
-
             _buildDateElement(_EDCDateController, '预产日期', cowEntity.EDC,(String date)=>cowEntity.EDC = date),
             Row(
              children: <Widget>[
@@ -112,7 +109,6 @@ class _CowFormPageState extends State<CowFormPage> {
                  ),
                )
                )
-
              ],
             ),
 
@@ -174,42 +170,33 @@ class _CowFormPageState extends State<CowFormPage> {
         ),
       ),
       onTap: (){
-        setState((){
-
-        showDialog(
-            context: context,
-            child: new AlertDialog(
-              //title: new Text("请选择"),
-              content:SizedBox(
-                height: 230,
-                width: 200,
-                child: Column(
-                  children: <Widget>[
-                    BuildRadioListTile(callback:callback,initValue: initValue)
-                  ],
-                )
-              ),
-
-              actions: <Widget>[
-                new FlatButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: new Text("确定")),
-              ],
-            )
-        );
-
-
-        });
+        if(widget.enable == true){
+          showDialog(
+              context: context,
+              child: new AlertDialog(
+                //title: new Text("请选择"),
+                content:SizedBox(
+                    height: 230,
+                    width: 200,
+                    child: Column(
+                      children: <Widget>[
+                        BuildRadioListTile(callback:callback,initValue: initValue)
+                      ],
+                    )
+                ),
+                actions: <Widget>[
+                  new FlatButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: new Text("确定")),
+                ],
+              )
+          );
+        }
       },
     );
   }
-
-
-
-
-
   _buildDateElement(controller,label,date,callback){
     return InkWell(
         child:TextFormField(

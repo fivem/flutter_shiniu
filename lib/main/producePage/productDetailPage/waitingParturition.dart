@@ -72,8 +72,7 @@ class _WaitingParturitionState extends State<WaitingParturition> {
             headingRowHeight:30,
             dataRowHeight:38,
             header: SizedBox(height: 30,child: Text('母牛集合')),
-              actions: <Widget>[/*跟header 在一条线的antion*/
-                IconButton(icon: Icon(Icons.edit,color:Colors.blue), onPressed: null),
+              actions: <Widget>[
                 IconButton(icon: Icon(Icons.remove,color:Colors.blue), onPressed: _deleteInfo),
                 IconButton(icon: Icon(Icons.add,color:Colors.blue), onPressed: _addInfo),
               ],
