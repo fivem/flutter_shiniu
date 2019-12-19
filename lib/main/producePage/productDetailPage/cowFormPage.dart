@@ -43,7 +43,7 @@ class _CowFormPageState extends State<CowFormPage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: CommonAppBar(title:'母牛'),
+      appBar: CommonAppBar(title:'详细内容'),
 
       body: Form(
         key : _formKey,

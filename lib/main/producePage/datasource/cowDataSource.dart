@@ -7,6 +7,7 @@ import 'package:flutter_shiniu/main/producePage/productDetailPage/cowFormPage.da
 class CowDataSource extends DataTableSource{
   CowEntity cowEntity;
   List<CowEntity>  listData = <CowEntity>[];
+  int selectedLength = 0;
   BuildContext context;
   CowDataSource({this.cowEntity}){
     WaitingParturitionDao().query(cowEntity).then((result){
@@ -36,7 +37,11 @@ class CowDataSource extends DataTableSource{
       index: index,
       onSelectChanged: (isSelected) {
         cow.selected = !cow.selected;
-        print("${cow.cowCode}");
+        if(cow.selected==true){
+          this.selectedLength ++;
+        }else{
+          this.selectedLength --;
+        }
         notifyListeners();
       }
     );
@@ -52,7 +57,7 @@ class CowDataSource extends DataTableSource{
 
   @override
   // 选中行数
-  int get selectedRowCount => 1;
+  int get selectedRowCount => selectedLength;
 
   void sortData<T>(Comparable<T> getField(CowEntity cow),bool ascending){
     listData.sort((CowEntity a,CowEntity b) {
@@ -67,8 +72,11 @@ class CowDataSource extends DataTableSource{
     });
     notifyListeners();
   }
+
   buildContext(context){
     this.context = context;
   }
+
+
 
 }

@@ -86,7 +86,7 @@ class _WaitingParturitionState extends State<WaitingParturition> {
         padding: const EdgeInsets.all(4.0),
         children: <Widget>[
           PaginatedDataTable(
-            header: SizedBox(height: 30,child: Text('母牛集合')),
+            header: SizedBox(height: 30,child: Text('母牛列表')),
             headingRowHeight:30,
             dataRowHeight:38,
               actions: <Widget>[
