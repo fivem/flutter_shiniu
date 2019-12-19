@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_shiniu/common/utils/toast.dart';
 import 'package:flutter_shiniu/main/producePage/dao/waitingParturitionDao.dart';
 import 'package:flutter_shiniu/main/producePage/datasource/cowDataSource.dart';
 import 'package:flutter_shiniu/main/producePage/entity/cowEntity.dart';
@@ -25,6 +26,22 @@ class _WaitingParturitionState extends State<WaitingParturition> {
       Navigator.of(context).push(MaterialPageRoute(builder: (_){
         return CowFormPage(enable: true);
       },settings: RouteSettings(name: '/CowFormPage')));
+    }
+    _editInfo(){
+      List<CowEntity> tempList = [];
+      _dataTableSource.listData.forEach((cow){
+        if(cow.selected == true){
+          tempList.add(cow);
+        }
+      });
+      if(tempList.length!=1){
+        Toast.show(context,'msg',null);
+      }else{
+        Navigator.of(context).push(MaterialPageRoute(builder: (_){
+          return CowFormPage(enable: true,cow:tempList[0]);
+        },settings: RouteSettings(name: '/CowFormPage')));
+      }
+
     }
     _deleteInfo(){
       assert(_dataTableSource.listData!=null);
@@ -69,10 +86,11 @@ class _WaitingParturitionState extends State<WaitingParturition> {
         padding: const EdgeInsets.all(4.0),
         children: <Widget>[
           PaginatedDataTable(
+            header: SizedBox(height: 30,child: Text('母牛集合')),
             headingRowHeight:30,
             dataRowHeight:38,
-            header: SizedBox(height: 30,child: Text('母牛集合')),
               actions: <Widget>[
+                IconButton(icon: Icon(Icons.edit,color:Colors.blue), onPressed: _editInfo),
                 IconButton(icon: Icon(Icons.remove,color:Colors.blue), onPressed: _deleteInfo),
                 IconButton(icon: Icon(Icons.add,color:Colors.blue), onPressed: _addInfo),
               ],
