@@ -3,6 +3,7 @@ import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shiniu/common/utils/datePicker.dart';
 import 'package:flutter_shiniu/common/utils/enumTransfer.dart';
+import 'package:flutter_shiniu/common/utils/toast.dart';
 import 'package:flutter_shiniu/main/commonAppBar.dart';
 import 'package:flutter_shiniu/main/producePage/dao/waitingParturitionDao.dart';
 import 'package:flutter_shiniu/main/producePage/entity/cowEntity.dart';
@@ -135,7 +136,7 @@ class _CowFormPageState extends State<CowFormPage> {
                       }
                       var id = await WaitingParturitionDao().insert(cowEntity);
                       if(id>0){
-                        showDialog(
+                        /*showDialog(
                             context: context,
                             child: new AlertDialog(
                               title: new Text("提示"),
@@ -147,7 +148,10 @@ class _CowFormPageState extends State<CowFormPage> {
                                     },
                                     child: new Text("确定")),
                               ],
-                            ));
+                            ));*/
+                        Toast.show(context,'保存成功',(){
+                          Navigator.of(context).popUntil(ModalRoute.withName("/WaitingParturition"));
+                        });
                       }
                    }
                 ),

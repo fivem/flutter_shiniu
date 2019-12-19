@@ -39,7 +39,7 @@ class Toast{
     toastView.controllerShowAnim = controllerShowAnim;
     toastView.controllerShowOffset = controllerShowOffset;
     toastView.controllerHide = controllerHide;
-    toastView._show();
+    toastView._show(callback);
   }
 
   static _buildToastLayout(msg){
@@ -81,11 +81,14 @@ class ToastView{
   AnimationController controllerHide;
   bool dismissed = false;
   ToastView(this.overlayEntry,this.overlayState);
-  _show() async {
+  _show(Function callback) async {
     overlayState.insert(overlayEntry);
     controllerShowAnim.forward();
     controllerShowOffset.forward();
     await Future.delayed(Duration(milliseconds: 1500));
+    if(callback!=null){
+      callback();
+    }
     this.dismiss();
   }
 

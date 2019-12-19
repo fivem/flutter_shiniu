@@ -35,7 +35,9 @@ class _WaitingParturitionState extends State<WaitingParturition> {
         }
       });
       if(tempList.length!=1){
-        Toast.show(context,'msg',null);
+        Toast.show(context,'msg',(){
+          print('callback');
+        });
       }else{
         Navigator.of(context).push(MaterialPageRoute(builder: (_){
           return CowFormPage(enable: true,cow:tempList[0]);
