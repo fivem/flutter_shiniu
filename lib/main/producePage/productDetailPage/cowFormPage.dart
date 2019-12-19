@@ -30,6 +30,7 @@ class _CowFormPageState extends State<CowFormPage> {
   _CowFormPageState(cow){
     if(cow!=null){
       cowEntity = cow;
+      stateValue = cowEntity.state;
     }
 
     _birthDayController = TextEditingController(text: cowEntity.birthDay==null ?formatDate( DateTime.now(), [yyyy, "-", mm, "-", dd]):cowEntity.birthDay);

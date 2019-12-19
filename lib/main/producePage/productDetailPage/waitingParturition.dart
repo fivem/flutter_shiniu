@@ -35,9 +35,7 @@ class _WaitingParturitionState extends State<WaitingParturition> {
         }
       });
       if(tempList.length!=1){
-        Toast.show(context,'msg',(){
-          print('callback');
-        });
+        Toast.show(context,'请选中一条数据',null);
       }else{
         Navigator.of(context).push(MaterialPageRoute(builder: (_){
           return CowFormPage(enable: true,cow:tempList[0]);
