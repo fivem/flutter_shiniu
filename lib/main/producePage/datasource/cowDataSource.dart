@@ -27,7 +27,7 @@ class CowDataSource extends DataTableSource{
             },settings:RouteSettings(name: '/CowFormPage')));
           }
         )),
-        DataCell(Text('${cow.EDC}')),
+        DataCell(Text('${cow.EDC=="null"?"":cow.EDC}')),
         DataCell(Text('${EnumTransfer.getStateText(cow.state)}')),
         DataCell(Text('${cow.immuno=="0"?"否":"是"}')),
 
