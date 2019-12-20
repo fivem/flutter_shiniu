@@ -50,9 +50,10 @@ class MockServer{
         case '/extension': return mockData(ExtensionData.data);
         //营销
         case '/marketting/0': return mockData(MarketingData.data2);
-        case '/marketting/4': return mockData(MarketingData.data2);
         case '/marketting/1': return mockData(MarketingData.data1);
-        case '/marketting/3': return mockData(MarketingData.data1);
+        case '/marketting/2': return mockData(MarketingData.data2);
+        case '/marketting/3': return mockData(MarketingData.data2);
+        case '/marketting/4': return mockData(MarketingData.data1);
         //调研
         case '/survey' : return mockData(Survey.data);
         case '/promotion': return mockData(Promotion.data);
