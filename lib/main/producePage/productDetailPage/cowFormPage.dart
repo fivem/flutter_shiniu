@@ -2,6 +2,7 @@
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shiniu/common/utils/datePicker.dart';
+import 'package:flutter_shiniu/common/utils/debounce.dart';
 import 'package:flutter_shiniu/common/utils/enumTransfer.dart';
 import 'package:flutter_shiniu/common/utils/mask.dart';
 import 'package:flutter_shiniu/common/utils/toast.dart';
@@ -132,7 +133,7 @@ class _CowFormPageState extends State<CowFormPage> {
                    highlightElevation:0,
                   disabledElevation:0,
                     shape: StadiumBorder(side: BorderSide(color:Colors.blue)),
-                    onPressed: ()async{
+                    onPressed: Debounce().debounce(()async{
                       if(_formKey.currentState.validate()){
                         _formKey.currentState.save();
                       }
@@ -157,7 +158,7 @@ class _CowFormPageState extends State<CowFormPage> {
                           Navigator.of(context).popUntil(ModalRoute.withName("/WaitingParturition"));
                         });
                       }
-                   }
+                    },200)
                 ),
               )
             )
