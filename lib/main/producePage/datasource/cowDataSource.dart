@@ -21,16 +21,19 @@ class CowDataSource extends DataTableSource{
 
     return DataRow.byIndex(
       cells: <DataCell>[
-        DataCell(GestureDetector(child: Text('${cow.cowCode}',style: TextStyle(color: Colors.blue),),
-          onTap: (){
-            Navigator.of(context).push(MaterialPageRoute(builder: (_){
-              return CowFormPage(enable: false,cow:cow);
-            },settings:RouteSettings(name: '/CowFormPage')));
-          }
-        )),
-        DataCell(Text('${cow.EDC=="null"?"":cow.EDC}')),
-        DataCell(Text('${EnumTransfer.getStateText(cow.state)}')),
-        DataCell(Text('${cow.immuno=="0"?"否":"是"}')),
+        DataCell(GestureDetector(
+          child:Container(
+            width: 40,
+            child:Text('${cow.cowCode}',style: TextStyle(color: Colors.blue),),
+          )
+        ),onTap: (){
+          Navigator.of(context).push(MaterialPageRoute(builder: (_){
+            return CowFormPage(enable: false,cow:cow);
+          },settings:RouteSettings(name: '/CowFormPage')));
+        }),
+        DataCell(Container(width:70,child:Text('${cow.EDC=="null"?"":cow.EDC}'))),
+        DataCell(Container(width:30,child:Text('${EnumTransfer.getStateText(cow.state)}'))),
+        DataCell(Container(width:20,child:Center(child:Text('${cow.immuno=="0"?"否":"是"}')))),
 
       ],
       selected: listData[index].selected,

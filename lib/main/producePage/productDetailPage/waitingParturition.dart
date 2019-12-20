@@ -109,6 +109,7 @@ class _WaitingParturitionState extends State<WaitingParturition> {
               ),
             ),),
             headingRowHeight:30,
+            columnSpacing:18,
             dataRowHeight:38,
             actions: <Widget>[
               SizedBox(width: 25,child:IconButton(icon: Icon(Icons.search,color:Colors.blue,size: 20), onPressed: _queryInfo)),
@@ -121,7 +122,7 @@ class _WaitingParturitionState extends State<WaitingParturition> {
                   (int columnIndex,bool ascending)=>_sort((CowEntity cow)=>cow.cowCode,columnIndex,ascending)),
               DataColumn(label: Text('预产期')),
               DataColumn(label: Text('状态')),
-              DataColumn(label: Text('是否免疫')),
+              DataColumn(label: Text('免疫')),
             ],
             source : _dataTableSource,
             onPageChanged : null,
