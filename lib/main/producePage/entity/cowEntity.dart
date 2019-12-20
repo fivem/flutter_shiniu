@@ -16,7 +16,7 @@ class CowEntity extends CommonEntity{
 
   CowEntity({pkid,this.cowCode, this.state='0', this.period, this.birthDay,
       this.birthCount=0, this.fertilizationDate, this.childbirthDate, this.EDC,
-      this.immuno, this.remark,createDate,createUser,deleteFlag}){
+      this.immuno=0, this.remark,createDate,createUser,deleteFlag}){
     if(this.birthDay==null){
       this.birthDay = formatDate( DateTime.now(), [yyyy, "-", mm, "-", dd]);
     }

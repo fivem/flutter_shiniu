@@ -1,6 +1,7 @@
 
 import 'package:flutter_shiniu/common/sqflite/sqfliteHandler.dart';
 import 'package:flutter_shiniu/main/producePage/entity/cowEntity.dart';
+import 'package:uuid/uuid.dart';
 
 class WaitingParturitionDao{
   String tableSQL = "create table pdt_cow( pkid test PRIMARY KEY , " +
@@ -11,7 +12,7 @@ class WaitingParturitionDao{
   SqfliteHandler handler;
   WaitingParturitionDao(){
     handler = new SqfliteHandler(tableName:'pdt_cow',tableSQL:this.tableSQL);
-  //  handler.reCreatTable();
+    //handler.reCreatTable();
   }
 
   insert(CowEntity cowEntity) async{
@@ -20,9 +21,39 @@ class WaitingParturitionDao{
         "${cowEntity.fertilizationDate}','${cowEntity.childbirthDate}','"
         "${cowEntity.EDC}',${cowEntity.immuno.toString()},'${cowEntity.remark}','${cowEntity.createDate}','"
         "${cowEntity.createUser}',${cowEntity.deleteFlag.toString()})";
+    print(sql);
     var id = await handler.insert(sql);
     return id;
   }
+
+  update(CowEntity cowEntity) async{
+    String sql = "update pdt_cow set"
+        " cow_Code = '${cowEntity.cowCode}',"
+        " period = '${cowEntity.period}',"
+        " birth_Day = '${cowEntity.birthDay}',"
+        " birth_Count = ${cowEntity.birthCount.toString()},"
+        " fertilization_Date = '${cowEntity.fertilizationDate}',"
+        " childbirth_Date = '${cowEntity.childbirthDate}',"
+        " EDC = '${cowEntity.EDC}',"
+        " immuno = ${cowEntity.immuno.toString()},"
+        " remark = '${cowEntity.remark}'"
+        " where pkid = '${cowEntity.pkid}'";
+    print(sql);
+    var id = await handler.update(sql);
+    return id;
+  }
+
+  save(CowEntity cowEntity) async{
+    int id = 0;
+    if(cowEntity.pkid==null||cowEntity.pkid.isEmpty){
+      cowEntity.pkid = Uuid().v1();
+      id = await insert(cowEntity);
+    }else{
+      id = await update(cowEntity);
+    }
+    return id;
+  }
+
   delete(CowEntity cowEntity) async{
     String sql = "delete from pdt_cow where pkid = '${cowEntity.pkid}'";
     var id = await handler.update(sql);

@@ -135,7 +135,7 @@ class _CowFormPageState extends State<CowFormPage> {
                       if(_formKey.currentState.validate()){
                         _formKey.currentState.save();
                       }
-                      var id = await WaitingParturitionDao().insert(cowEntity);
+                      var id = await WaitingParturitionDao().save(cowEntity);
                       if(id>0){
                         /*showDialog(
                             context: context,

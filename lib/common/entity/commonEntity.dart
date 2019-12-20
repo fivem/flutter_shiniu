@@ -8,9 +8,9 @@ class CommonEntity{
    int deleteFlag;
    bool selected = false;
    CommonEntity({this.pkid,this.createDate,this.createUser,this.deleteFlag}){
-      if(this.pkid == null){
+     /* if(this.pkid == null){
         this.pkid = Uuid().v1();
-      }
+      }*/
       if(this.createDate == null){
         this.createDate = formatDate(DateTime.now(),[yyyy, "-", mm, "-", dd]);
       }
