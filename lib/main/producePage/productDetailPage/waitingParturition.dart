@@ -74,11 +74,9 @@ class _WaitingParturitionState extends State<WaitingParturition> {
           ));
     }
     _queryInfo(){
-       if(_searchTextController.text!=''){
-         setState((){
-           _dataTableSource = CowDataSource(cowEntity: CowEntity(cowCode: _searchTextController.text));
-         });
-       }
+      setState((){
+        _dataTableSource = CowDataSource(cowEntity: CowEntity(cowCode: _searchTextController.text));
+      });
     }
     void _sort<T>(Comparable<T> getField(CowEntity d), int columnIndex, bool ascending) {
       _dataTableSource.sortData<T>(getField, ascending);
