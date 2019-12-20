@@ -46,32 +46,42 @@ class _WaitingParturitionState extends State<WaitingParturition> {
     }
     _deleteInfo(){
       assert(_dataTableSource.listData!=null);
-      showDialog(
-          context: context,
-          child: new AlertDialog(
-            title: new Text("提示"),
-            content: new Text("是否删除选中数据"),
-            actions: <Widget>[
-              new FlatButton(
-                  onPressed: () {
-                    _dataTableSource.listData.forEach((cow){
-                      if(cow.selected == true){
-                        WaitingParturitionDao().delete(cow);
-                      }
-                    });
-                    setState((){
-                      _dataTableSource = CowDataSource();
-                    });
-                    Navigator.of(context).pop();
-                  },
-                  child: new Text("确定")),
-              new FlatButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: new Text("取消")),
-            ],
-          ));
+      var tempList = [];
+      _dataTableSource.listData.forEach((cow){
+        if(cow.selected == true){
+          tempList.add(cow);
+        }
+      });
+      if(tempList.length==0){
+        Toast.show(context, '请选择数据', null);
+      }else{
+        showDialog(
+            context: context,
+            child: new AlertDialog(
+              title: new Text("提示"),
+              content: new Text("是否删除选中数据"),
+              actions: <Widget>[
+                new FlatButton(
+                    onPressed: () {
+                      _dataTableSource.listData.forEach((cow){
+                        if(cow.selected == true){
+                          WaitingParturitionDao().delete(cow);
+                        }
+                      });
+                      setState((){
+                        _dataTableSource = CowDataSource();
+                      });
+                      Navigator.of(context).pop();
+                    },
+                    child: new Text("确定")),
+                new FlatButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: new Text("取消")),
+              ],
+            ));
+      }
     }
     _queryInfo(){
       setState((){
