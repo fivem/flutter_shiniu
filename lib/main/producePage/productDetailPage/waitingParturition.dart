@@ -19,6 +19,7 @@ class _WaitingParturitionState extends State<WaitingParturition> {
   int _sortColumnIndex;
   bool _sortAscending = false;
   CowDataSource _dataTableSource = CowDataSource();
+  TextEditingController _searchTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     _dataTableSource.buildContext(context);
@@ -71,7 +72,13 @@ class _WaitingParturitionState extends State<WaitingParturition> {
                   child: new Text("取消")),
             ],
           ));
-
+    }
+    _queryInfo(){
+       if(_searchTextController.text!=''){
+         setState((){
+           _dataTableSource = CowDataSource(cowEntity: CowEntity(cowCode: _searchTextController.text));
+         });
+       }
     }
     void _sort<T>(Comparable<T> getField(CowEntity d), int columnIndex, bool ascending) {
       _dataTableSource.sortData<T>(getField, ascending);
@@ -86,28 +93,35 @@ class _WaitingParturitionState extends State<WaitingParturition> {
         padding: const EdgeInsets.all(4.0),
         children: <Widget>[
           PaginatedDataTable(
-            header: SizedBox(height: 30,child: Text('母牛列表')),
+            header: SizedBox(height: 15,child:  TextFormField(
+              style: TextStyle(fontSize: 12),
+              controller: _searchTextController,
+              decoration: InputDecoration(
+                hintText: '请输入编号'
+              ),
+            ),),
             headingRowHeight:30,
             dataRowHeight:38,
-              actions: <Widget>[
-                IconButton(icon: Icon(Icons.edit,color:Colors.blue), onPressed: _editInfo),
-                IconButton(icon: Icon(Icons.remove,color:Colors.blue), onPressed: _deleteInfo),
-                IconButton(icon: Icon(Icons.add,color:Colors.blue), onPressed: _addInfo),
-              ],
-              columns:<DataColumn>[
-                DataColumn(label: Text('编号'),onSort:
-                    (int columnIndex,bool ascending)=>_sort((CowEntity cow)=>cow.cowCode,columnIndex,ascending)),
-                DataColumn(label: Text('预产期')),
-                DataColumn(label: Text('状态')),
-                DataColumn(label: Text('是否免疫')),
-              ],
-              source : _dataTableSource,
-              onPageChanged : null,
-              sortColumnIndex: _sortColumnIndex,
-              sortAscending: _sortAscending,
-              //onSelectAll: table.selectAll,
-              rowsPerPage : _rowsPerPage,
-              onRowsPerPageChanged : (int value) { setState(() { _rowsPerPage = value; }); },
+            actions: <Widget>[
+              SizedBox(width: 25,child:IconButton(icon: Icon(Icons.search,color:Colors.blue,size: 20), onPressed: _queryInfo)),
+              SizedBox(width: 25,child:IconButton(icon: Icon(Icons.edit,color:Colors.blue,size: 20), onPressed: _editInfo)),
+              SizedBox(width: 25,child:IconButton(icon: Icon(Icons.remove,color:Colors.blue,size: 20), onPressed: _deleteInfo)),
+              SizedBox(width: 25,child:IconButton(icon: Icon(Icons.add,color:Colors.blue,size: 20), onPressed: _addInfo)),
+            ],
+            columns:<DataColumn>[
+              DataColumn(label: Text('编号'),onSort:
+                  (int columnIndex,bool ascending)=>_sort((CowEntity cow)=>cow.cowCode,columnIndex,ascending)),
+              DataColumn(label: Text('预产期')),
+              DataColumn(label: Text('状态')),
+              DataColumn(label: Text('是否免疫')),
+            ],
+            source : _dataTableSource,
+            onPageChanged : null,
+            sortColumnIndex: _sortColumnIndex,
+            sortAscending: _sortAscending,
+            //onSelectAll: table.selectAll,
+            rowsPerPage : _rowsPerPage,
+            onRowsPerPageChanged : (int value) { setState(() { _rowsPerPage = value; }); },
           )
         ],
       ),
