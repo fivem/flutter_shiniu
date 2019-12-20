@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shiniu/common/appbar/SearchBarDelegate.dart';
 
 class CommonAppBar extends StatefulWidget implements PreferredSizeWidget {
-  CommonAppBar({Key key,this.title, this.icon,this.tabBar}) : super(key: key);
+  CommonAppBar({Key key,this.title, this.icon,this.tabBar,this.showResultWidget,this.search}) : super(key: key);
   final String title;
   final IconData icon;
   final TabBar tabBar;
+  final Function showResultWidget;
+  final bool search;
   @override
   State<StatefulWidget> createState() {
     return _CommonAppBar();
@@ -22,12 +25,17 @@ class _CommonAppBar extends State<CommonAppBar>{
       backgroundColor: Colors.blue,
       centerTitle: true,
       actions: <Widget>[
-        // 非隐藏的菜单
-        new IconButton(
-            icon: new Icon(Icons.add_alarm),
-            tooltip: 'Add Alarm',
-            onPressed: () {}
+        Visibility(
+          visible: widget.search==true,
+          child:new IconButton(
+              icon: new Icon(Icons.search),
+              tooltip: 'Search',
+              onPressed: () {
+                showSearch(context: context,delegate: SearchBarDelegate(showResultWidget:widget.showResultWidget));
+              }
+          ),
         ),
+
         // 隐藏的菜单
         new PopupMenuButton<String>(
           itemBuilder: (BuildContext context) => <PopupMenuItem<String>>[

@@ -20,7 +20,7 @@ class _HotSale extends State<HotSale>{
     this.context = context;
     return WillPopScope(
       child:Scaffold(
-        appBar: CommonAppBar(title: '热销'),
+        appBar: CommonAppBar(title: '热销',search: true,showResultWidget: _buildSearchResultWidget),
         body: Container(
           padding:EdgeInsets.all(8.0),
           child: Column(
@@ -185,9 +185,56 @@ class _HotSale extends State<HotSale>{
   Future<Null> _handleRefresh() async{}
 
   Future<bool> goBack(){
-    print('hotSale go back');
     Navigator.of(context).pop();
     return new Future.value(false);
+  }
+  _buildSearchResultWidget(String query){
+    var searchResultList  = [];
+    listData.forEach((e){
+      if(e['name'].contains(query)){
+        searchResultList.add(e);
+      }
+    });
+    return ListView.builder(
+        itemBuilder: (BuildContext context, int index){
+          return Card(
+              elevation: 15.0,
+              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(14.0))),
+              child: Container(
+                  height: 55,
+                  child: Row(
+                    children: <Widget>[
+                      Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                          child:CircleAvatar(
+                              backgroundColor: Colors.blue,
+                              radius: 15.0,
+                              child: Text((index+1).toString())
+                          )
+                      ),
+                      Expanded(
+                          child:Container(
+                              padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                              child: Text(searchResultList[index]['name'])
+                          )
+                      ),
+                      Container(
+                          padding: EdgeInsets.fromLTRB(10, 0, 20, 0),
+                          child: Text(searchResultList[index]['account'])
+                      ),
+                      Container(
+                          alignment: Alignment.centerRight,
+                          padding:EdgeInsets.fromLTRB(0, 0, 20, 0),
+                          child: searchResultList[index]['float']=='up'? Icon(Icons.trending_up,color: Colors.green):Icon(Icons.trending_down,color: Colors.red)
+                      )
+                    ],
+                  )
+              )
+          );
+        },
+        itemCount: searchResultList.length
+    );
   }
 
   @override
