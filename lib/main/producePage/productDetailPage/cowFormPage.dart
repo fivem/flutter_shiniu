@@ -1,6 +1,7 @@
 
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_shiniu/common/utils/buildRadioListTile.dart';
 import 'package:flutter_shiniu/common/utils/datePicker.dart';
 import 'package:flutter_shiniu/common/utils/debounce.dart';
 import 'package:flutter_shiniu/common/utils/enumTransfer.dart';
@@ -9,7 +10,6 @@ import 'package:flutter_shiniu/common/utils/toast.dart';
 import 'package:flutter_shiniu/main/commonAppBar.dart';
 import 'package:flutter_shiniu/main/producePage/dao/waitingParturitionDao.dart';
 import 'package:flutter_shiniu/main/producePage/entity/cowEntity.dart';
-import 'package:flutter_shiniu/main/producePage/productDetailPage/waitingParturition.dart';
 
 class CowFormPage extends StatefulWidget {
   CowEntity cow;
@@ -26,8 +26,11 @@ class _CowFormPageState extends State<CowFormPage> {
   TextEditingController _childbirthDateController;
   TextEditingController _EDCDateController;
   TextEditingController _stateController;
+  TextEditingController _periodController;
+
   CowEntity cowEntity = new CowEntity();
   String stateValue;
+  String periodValue;
 
   _CowFormPageState(cow){
     if(cow!=null){
@@ -37,6 +40,7 @@ class _CowFormPageState extends State<CowFormPage> {
 
     _birthDayController = TextEditingController(text: cowEntity.birthDay==null ?formatDate( DateTime.now(), [yyyy, "-", mm, "-", dd]):cowEntity.birthDay);
     _stateController = TextEditingController(text:EnumTransfer.getStateText(stateValue));
+    _periodController = TextEditingController(text:EnumTransfer.getPeriodText(periodValue));
     _fertilizationDateController = TextEditingController();
     _childbirthDateController = TextEditingController();
     _EDCDateController = TextEditingController();
@@ -60,23 +64,20 @@ class _CowFormPageState extends State<CowFormPage> {
                ),
                onSaved: (String value) => cowEntity.cowCode = value,
             ),
-             _buildRadioListElement(context,_stateController,'状态',stateValue,(value){
+             _buildRadioListElement(context,_stateController,'状态',stateValue,EnumTransfer.stateMap,(value){
                setState(() {
                  _stateController.text = EnumTransfer.getStateText(value);
                  stateValue = value;
                  cowEntity.state = value;
                });
              }),
-            TextFormField(
-              enabled: widget.enable,
-              initialValue: cowEntity.period,
-              decoration: InputDecoration(
-                labelText: '周期'
-              ),
-              onSaved: (String value) => cowEntity.period = value,
-              onChanged: (String value){
-              },
-            ),
+             _buildRadioListElement(context,_periodController,'周期',periodValue,EnumTransfer.periodMap,(value){
+               setState(() {
+                 _periodController.text = EnumTransfer.getPeriodText(value);
+                 periodValue = value;
+                 cowEntity.period = value;
+               });
+             }),
             TextFormField(
              enabled: widget.enable,
              initialValue: '${cowEntity.birthCount}',
@@ -169,7 +170,7 @@ class _CowFormPageState extends State<CowFormPage> {
       ),
     );
   }
-  _buildRadioListElement(context,controller,label,initValue,callback){
+  _buildRadioListElement(context,controller,label,initValue,map,callback){
     return InkWell(
       child: TextFormField(
         enabled: false,
@@ -190,7 +191,7 @@ class _CowFormPageState extends State<CowFormPage> {
                     width: 200,
                     child: Column(
                       children: <Widget>[
-                        BuildRadioListTile(callback:callback,initValue: initValue)
+                        BuildRadioListTile(callback:callback,initValue: initValue,map:map)
                       ],
                     )
                 ),
@@ -236,7 +237,6 @@ class _CowFormPageState extends State<CowFormPage> {
                 }else if(result!=null){
                   date = formatDate(result,[yyyy, "-", mm, "-", dd]);
                 }
-
                 controller.text = date??'';
                 callback(date);
               });
@@ -247,38 +247,3 @@ class _CowFormPageState extends State<CowFormPage> {
   }
 }
 
-
-class BuildRadioListTile extends StatefulWidget {
-  Function callback;
-  String initValue;
-  BuildRadioListTile({this.callback,this.initValue});
-  @override
-  _BuildRadioListTileState createState() => _BuildRadioListTileState();
-}
-
-class _BuildRadioListTileState extends State<BuildRadioListTile> {
-  String stateValue ;
-  @override
-  Widget build(BuildContext context) {
-    if(stateValue == null){
-      stateValue = widget.initValue == ""||widget.initValue==null ? "0" : widget.initValue;
-    }
-    return  Column(
-      children: List<RadioListTile<String>>.generate(4, (int index){
-      return RadioListTile<String>(
-          activeColor:Colors.blue,
-          title:Text(EnumTransfer.getStateText('${index}')),
-          //subtitle:Text('subTitle'),
-          selected:stateValue == '${index}',
-          value: '${index}',
-          groupValue: stateValue,
-          onChanged: (value)=> setState((){
-            stateValue = value;
-            widget.callback(value);
-          })
-        );
-      },
-    )
-    );
-  }
-}

@@ -12,4 +12,16 @@ class EnumTransfer {
     return stateMap[state];
   }
 
+
+  static Map<String,String> periodMap = <String,String>{
+    '0':'待产期',
+    '1':'怀孕期',
+    '2':'休止期'
+  };
+  static getPeriodText(String period){
+    if(period==null){
+      period = '2';
+     }
+     return periodMap[period];
+  }
 }
