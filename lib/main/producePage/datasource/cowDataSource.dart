@@ -11,7 +11,16 @@ class CowDataSource extends DataTableSource{
   BuildContext context;
   String page;
   CowDataSource({@required this.page,this.cowEntity}){
-    WaitingParturitionDao().query(cowEntity).then((result){
+    if(this.cowEntity == null){
+      this.cowEntity = CowEntity();
+      switch(page){
+        case 'waitingParturition': this.cowEntity.period='0';break;
+        case 'pregnancy': this.cowEntity.period='1';break;
+        case 'interruption':  this.cowEntity.period='2';break;
+      }
+    }
+
+    WaitingParturitionDao().query(this.cowEntity).then((result){
       listData = result;
       notifyListeners();
     });

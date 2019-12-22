@@ -68,8 +68,13 @@ class WaitingParturitionDao{
         condition += " and ";
         condition += " cow_code like '%${cow.cowCode}%'";
       }
+      if(cow.period!='' && cow.period!=null){
+        condition += " and period ='${cow.period}' ";
+      }
     }
-    var result = await handler.query("select * from pdt_cow" +condition);
+    String sql = "select * from pdt_cow" +condition;
+    var result = await handler.query(sql);
+    print(sql);
     return assembleBean(result);
   }
 

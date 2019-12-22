@@ -99,7 +99,7 @@ class _WaitingParturitionState extends State<WaitingParturition> {
       });
     }
     return Scaffold(
-      appBar: CommonAppBar(title:'待产'),
+      appBar: CommonAppBar(title:_buildTitle(widget.page)),
       body: ListView(
         padding: const EdgeInsets.all(4.0),
         children: <Widget>[
@@ -158,11 +158,17 @@ class _WaitingParturitionState extends State<WaitingParturition> {
   }
 
   _buildDateTitle(page){
-
     switch(page){
       case 'waitingParturition': return '预产日期';
       case 'pregnancy': return '受精日期';
       case 'interruption': return '生产日期';
+    }
+  }
+  _buildTitle(page){
+    switch(page){
+      case 'waitingParturition': return '待产期';
+      case 'pregnancy': return '怀孕期';
+      case 'interruption': return '休止期';
     }
   }
 }

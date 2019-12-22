@@ -20,7 +20,7 @@ class EnumTransfer {
   };
   static getPeriodText(String period){
     if(period==null){
-      period = '2';
+      period = '0';
      }
      return periodMap[period];
   }
