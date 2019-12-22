@@ -9,7 +9,8 @@ class CowDataSource extends DataTableSource{
   List<CowEntity>  listData = <CowEntity>[];
   int selectedLength = 0;
   BuildContext context;
-  CowDataSource({this.cowEntity}){
+  String page;
+  CowDataSource({@required this.page,this.cowEntity}){
     WaitingParturitionDao().query(cowEntity).then((result){
       listData = result;
       notifyListeners();
@@ -31,7 +32,7 @@ class CowDataSource extends DataTableSource{
             return CowFormPage(enable: false,cow:cow);
           },settings:RouteSettings(name: '/CowFormPage')));
         }),
-        DataCell(Container(width:70,child:Text('${cow.EDC=="null"?"":cow.EDC}'))),
+        DataCell(Container(width:70,child:Text(_buildDateTitle(this.page,cow)))),
         DataCell(Container(width:30,child:Text('${EnumTransfer.getStateText(cow.state)}'))),
         DataCell(Container(width:20,child:Center(child:Text('${cow.immuno=="0"?"否":"是"}')))),
 
@@ -80,6 +81,13 @@ class CowDataSource extends DataTableSource{
     this.context = context;
   }
 
+  _buildDateTitle(page,CowEntity cow){
 
+    switch(page){
+      case 'waitingParturition': return cow.EDC=='null'?"":cow.EDC;
+      case 'pregnancy': return cow.fertilizationDate=='null'?'':cow.fertilizationDate;
+      case 'interruption': return cow.childbirthDate=='null'?'':cow.childbirthDate;
+    }
+  }
 
 }

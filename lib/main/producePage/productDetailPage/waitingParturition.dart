@@ -9,6 +9,8 @@ import 'package:flutter_shiniu/main/producePage/productDetailPage/cowFormPage.da
 import '../../commonAppBar.dart';
 
 class WaitingParturition extends StatefulWidget {
+  String page='waitingParturition';
+  WaitingParturition({@required this.page});
   @override
   _WaitingParturitionState createState() => _WaitingParturitionState();
 }
@@ -18,10 +20,11 @@ class _WaitingParturitionState extends State<WaitingParturition> {
   int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
   int _sortColumnIndex;
   bool _sortAscending = false;
-  CowDataSource _dataTableSource = CowDataSource();
+  CowDataSource _dataTableSource;
   TextEditingController _searchTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    _dataTableSource = CowDataSource(page:widget.page);
     _dataTableSource.buildContext(context);
     _addInfo(){
       Navigator.of(context).push(MaterialPageRoute(builder: (_){
@@ -69,7 +72,7 @@ class _WaitingParturitionState extends State<WaitingParturition> {
                         }
                       });
                       setState((){
-                        _dataTableSource = CowDataSource();
+                        _dataTableSource = CowDataSource(page:widget.page);
                       });
                       Navigator.of(context).pop();
                     },
@@ -85,7 +88,7 @@ class _WaitingParturitionState extends State<WaitingParturition> {
     }
     _queryInfo(){
       setState((){
-        _dataTableSource = CowDataSource(cowEntity: CowEntity(cowCode: _searchTextController.text));
+        _dataTableSource = CowDataSource(page:widget.page,cowEntity: CowEntity(cowCode: _searchTextController.text));
       });
     }
     void _sort<T>(Comparable<T> getField(CowEntity d), int columnIndex, bool ascending) {
@@ -120,7 +123,7 @@ class _WaitingParturitionState extends State<WaitingParturition> {
             columns:<DataColumn>[
               DataColumn(label: Text('编号'),onSort:
                   (int columnIndex,bool ascending)=>_sort((CowEntity cow)=>cow.cowCode,columnIndex,ascending)),
-              DataColumn(label: Text('预产期')),
+              DataColumn(label: Text(_buildDateTitle(widget.page))),
               DataColumn(label: Text('状态')),
               DataColumn(label: Text('免疫')),
             ],
@@ -150,7 +153,16 @@ class _WaitingParturitionState extends State<WaitingParturition> {
   void deactivate() {
     var bool = ModalRoute.of(context).isCurrent;
     if (bool) {
-      _dataTableSource = CowDataSource();
+      _dataTableSource = CowDataSource(page:widget.page);
+    }
+  }
+
+  _buildDateTitle(page){
+
+    switch(page){
+      case 'waitingParturition': return '预产日期';
+      case 'pregnancy': return '受精日期';
+      case 'interruption': return '生产日期';
     }
   }
 }

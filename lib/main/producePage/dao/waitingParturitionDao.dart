@@ -29,6 +29,7 @@ class WaitingParturitionDao{
   update(CowEntity cowEntity) async{
     String sql = "update pdt_cow set"
         " cow_Code = '${cowEntity.cowCode}',"
+        " state = '${cowEntity.state}',"
         " period = '${cowEntity.period}',"
         " birth_Day = '${cowEntity.birthDay}',"
         " birth_Count = ${cowEntity.birthCount.toString()},"
