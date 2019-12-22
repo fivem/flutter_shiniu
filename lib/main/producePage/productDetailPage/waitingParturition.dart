@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_shiniu/common/utils/enumTransfer.dart';
 import 'package:flutter_shiniu/common/utils/toast.dart';
 import 'package:flutter_shiniu/main/producePage/dao/waitingParturitionDao.dart';
 import 'package:flutter_shiniu/main/producePage/datasource/cowDataSource.dart';
@@ -12,7 +13,7 @@ class WaitingParturition extends StatefulWidget {
   String page='waitingParturition';
   WaitingParturition({@required this.page});
   @override
-  _WaitingParturitionState createState() => _WaitingParturitionState();
+  _WaitingParturitionState createState() => _WaitingParturitionState(page:page);
 }
 
 class _WaitingParturitionState extends State<WaitingParturition> {
@@ -22,9 +23,12 @@ class _WaitingParturitionState extends State<WaitingParturition> {
   bool _sortAscending = false;
   CowDataSource _dataTableSource;
   TextEditingController _searchTextController = TextEditingController();
+  String page;
+  _WaitingParturitionState({this.page}){
+    _dataTableSource = CowDataSource(page:this.page);
+  }
   @override
   Widget build(BuildContext context) {
-    _dataTableSource = CowDataSource(page:widget.page);
     _dataTableSource.buildContext(context);
     _addInfo(){
       Navigator.of(context).push(MaterialPageRoute(builder: (_){
@@ -88,7 +92,7 @@ class _WaitingParturitionState extends State<WaitingParturition> {
     }
     _queryInfo(){
       setState((){
-        _dataTableSource = CowDataSource(page:widget.page,cowEntity: CowEntity(cowCode: _searchTextController.text));
+        _dataTableSource = CowDataSource(page:widget.page,cowEntity: CowEntity(cowCode: _searchTextController.text,period: EnumTransfer.getNavigatorKey(this.page)));
       });
     }
     void _sort<T>(Comparable<T> getField(CowEntity d), int columnIndex, bool ascending) {
@@ -99,7 +103,7 @@ class _WaitingParturitionState extends State<WaitingParturition> {
       });
     }
     return Scaffold(
-      appBar: CommonAppBar(title:_buildTitle(widget.page)),
+      appBar: CommonAppBar(title:EnumTransfer.getNavigatorText(this.page)),
       body: ListView(
         padding: const EdgeInsets.all(4.0),
         children: <Widget>[
@@ -123,7 +127,7 @@ class _WaitingParturitionState extends State<WaitingParturition> {
             columns:<DataColumn>[
               DataColumn(label: Text('编号'),onSort:
                   (int columnIndex,bool ascending)=>_sort((CowEntity cow)=>cow.cowCode,columnIndex,ascending)),
-              DataColumn(label: Text(_buildDateTitle(widget.page))),
+              DataColumn(label: Text(EnumTransfer.getColumnTitleMap(this.page))),
               DataColumn(label: Text('状态')),
               DataColumn(label: Text('免疫')),
             ],
@@ -157,18 +161,5 @@ class _WaitingParturitionState extends State<WaitingParturition> {
     }
   }
 
-  _buildDateTitle(page){
-    switch(page){
-      case 'waitingParturition': return '预产日期';
-      case 'pregnancy': return '受精日期';
-      case 'interruption': return '生产日期';
-    }
-  }
-  _buildTitle(page){
-    switch(page){
-      case 'waitingParturition': return '待产期';
-      case 'pregnancy': return '怀孕期';
-      case 'interruption': return '休止期';
-    }
-  }
+
 }
