@@ -9,13 +9,15 @@ class CowEntity extends CommonEntity{
   String birthDay;
   int birthCount;
   String fertilizationDate;
+  String bullCode;
   String childbirthDate;
   String EDC;
   int immuno;
+
   String remark;
 
-  CowEntity({pkid,this.cowCode, this.state='0', this.period, this.birthDay,
-      this.birthCount=0, this.fertilizationDate, this.childbirthDate, this.EDC,
+  CowEntity({pkid,this.cowCode, this.state='0', this.period='0', this.birthDay,
+      this.birthCount=0, this.fertilizationDate,this.bullCode, this.childbirthDate, this.EDC,
       this.immuno=0, this.remark,createDate,createUser,deleteFlag}){
     if(this.birthDay==null){
       this.birthDay = formatDate( DateTime.now(), [yyyy, "-", mm, "-", dd]);

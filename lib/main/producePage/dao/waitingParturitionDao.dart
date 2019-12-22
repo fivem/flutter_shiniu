@@ -6,7 +6,7 @@ import 'package:uuid/uuid.dart';
 class WaitingParturitionDao{
   String tableSQL = "create table pdt_cow( pkid test PRIMARY KEY , " +
       "cow_code text not null, state text, period text,"+
-      "birth_Day date,birth_count int,fertilization_Date date,"+
+      "birth_Day date,birth_count int,fertilization_Date date,bull_code text,"+
       "childbirth_date date,EDC date,immuno int,remark text,create_date date,create_user text,delete_flag int)";
 
   SqfliteHandler handler;
@@ -18,7 +18,7 @@ class WaitingParturitionDao{
   insert(CowEntity cowEntity) async{
     String sql = "insert into pdt_cow values('${cowEntity.pkid}','${cowEntity.cowCode}',"
         "'${cowEntity.state}','${cowEntity.period}','${cowEntity.birthDay}',${cowEntity.birthCount.toString()},'"
-        "${cowEntity.fertilizationDate}','${cowEntity.childbirthDate}','"
+        "${cowEntity.fertilizationDate}','${cowEntity.bullCode}','${cowEntity.childbirthDate}','"
         "${cowEntity.EDC}',${cowEntity.immuno.toString()},'${cowEntity.remark}','${cowEntity.createDate}','"
         "${cowEntity.createUser}',${cowEntity.deleteFlag.toString()})";
     print(sql);
@@ -34,6 +34,7 @@ class WaitingParturitionDao{
         " birth_Day = '${cowEntity.birthDay}',"
         " birth_Count = ${cowEntity.birthCount.toString()},"
         " fertilization_Date = '${cowEntity.fertilizationDate}',"
+        " bullCode = '${cowEntity.bullCode}', "
         " childbirth_Date = '${cowEntity.childbirthDate}',"
         " EDC = '${cowEntity.EDC}',"
         " immuno = ${cowEntity.immuno.toString()},"
@@ -89,6 +90,7 @@ class WaitingParturitionDao{
       cowEntity.birthDay = result[i]['birth_Day'];
       cowEntity.birthCount = result[i]['birth_count'];
       cowEntity.fertilizationDate = result[i]['fertilization_Date'];
+      cowEntity.bullCode = result[i]['bull'];
       cowEntity.childbirthDate = result[i]['childbirth_date'];
       cowEntity.EDC = result[i]['EDC'];
       cowEntity.immuno = result[i]['immuno'];

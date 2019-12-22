@@ -90,6 +90,14 @@ class _CowFormPageState extends State<CowFormPage> {
            //mark : InkWell is work but GestureDetector not work
             _buildDateElement(_birthDayController, '出生日期', cowEntity.birthDay,true,(String date)=>setState((){cowEntity.birthDay = date;})),
             _buildDateElement(_fertilizationDateController, '受精日期', cowEntity.fertilizationDate,false,(String date)=>setState((){cowEntity.fertilizationDate = date;})),
+             TextFormField(
+               enabled: widget.enable,
+               initialValue: '${cowEntity.bullCode??""}',
+               decoration: InputDecoration(
+                   labelText: '种牛编号'
+               ),
+               onSaved: (String value) => cowEntity.bullCode = value,
+             ),
             _buildDateElement(_childbirthDateController, '分娩日期', cowEntity.childbirthDate,false,(String date)=>setState((){cowEntity.childbirthDate = date;})),
             _buildDateElement(_EDCDateController, '预产日期', cowEntity.EDC,false,(String date)=>setState((){cowEntity.EDC = date;})),
             Row(
