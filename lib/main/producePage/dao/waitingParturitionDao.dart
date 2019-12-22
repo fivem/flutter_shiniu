@@ -65,7 +65,7 @@ class WaitingParturitionDao{
       condition = " where delete_flag = 0 ";
       if(cow.cowCode!='' && cow.cowCode!=null){
         condition += " and ";
-        condition += " cow_code = '${cow.cowCode}'";
+        condition += " cow_code like '%${cow.cowCode}%'";
       }
     }
     var result = await handler.query("select * from pdt_cow" +condition);
