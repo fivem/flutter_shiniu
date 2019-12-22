@@ -133,32 +133,33 @@ class _CowFormPageState extends State<CowFormPage> {
                    highlightElevation:0,
                   disabledElevation:0,
                     shape: StadiumBorder(side: BorderSide(color:Colors.blue)),
-                    onPressed: Debounce().debounce(()async{
+                    onPressed: ()async{
+                    if(_formKey.currentState.validate()){
+                      _formKey.currentState.save();
+                    }
+                    Mask.show(context);
+                    var id = await WaitingParturitionDao().save(cowEntity);
+                    if(id>0){
+                      Toast.show(context,'保存成功',(){
+                        Mask.dismiss();
+                        Navigator.of(context).popUntil(ModalRoute.withName("/WaitingParturition"));
+                      });
+                    }
+
+                      return null;
+                    }/*Debounce().debounce(()async{
                       if(_formKey.currentState.validate()){
                         _formKey.currentState.save();
                       }
                       Mask.show(context);
                       var id = await WaitingParturitionDao().save(cowEntity);
                       if(id>0){
-                        /*showDialog(
-                            context: context,
-                            child: new AlertDialog(
-                              title: new Text("提示"),
-                              content: new Text("保存成功"),
-                              actions: <Widget>[
-                                new FlatButton(
-                                    onPressed: () {
-                                       Navigator.of(context).popUntil(ModalRoute.withName("/WaitingParturition"));
-                                    },
-                                    child: new Text("确定")),
-                              ],
-                            ));*/
                         Toast.show(context,'保存成功',(){
                           Mask.dismiss();
                           Navigator.of(context).popUntil(ModalRoute.withName("/WaitingParturition"));
                         });
                       }
-                    },200)
+                    },200)*/
                 ),
               )
             )
