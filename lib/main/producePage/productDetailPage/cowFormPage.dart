@@ -87,10 +87,10 @@ class _CowFormPageState extends State<CowFormPage> {
              onSaved: (String value) => cowEntity.birthCount = int.parse(value),
             ),
            //mark : InkWell is work but GestureDetector not work
-            _buildDateElement(_birthDayController, '出生日期', cowEntity.birthDay,true,(String date)=>cowEntity.birthDay = date),
-            _buildDateElement(_fertilizationDateController, '受精日期', cowEntity.fertilizationDate,false,(String date)=>cowEntity.fertilizationDate = date),
-            _buildDateElement(_childbirthDateController, '分娩日期', cowEntity.childbirthDate,false,(String date)=>cowEntity.childbirthDate = date),
-            _buildDateElement(_EDCDateController, '预产日期', cowEntity.EDC,false,(String date)=>cowEntity.EDC = date),
+            _buildDateElement(_birthDayController, '出生日期', cowEntity.birthDay,true,(String date)=>setState((){cowEntity.birthDay = date;})),
+            _buildDateElement(_fertilizationDateController, '受精日期', cowEntity.fertilizationDate,false,(String date)=>setState((){cowEntity.fertilizationDate = date;})),
+            _buildDateElement(_childbirthDateController, '分娩日期', cowEntity.childbirthDate,false,(String date)=>setState((){cowEntity.childbirthDate = date;})),
+            _buildDateElement(_EDCDateController, '预产日期', cowEntity.EDC,false,(String date)=>setState((){cowEntity.EDC = date;})),
             Row(
              children: <Widget>[
                Text('是否已经免疫'),
@@ -232,11 +232,12 @@ class _CowFormPageState extends State<CowFormPage> {
               DatePicker().openDatePicker(context,date).then((result){
                 //choose date
                 if(result==null && notNull==false){
-                  date = '';
-                }else{
-                  date = formatDate(result, [yyyy, "-", mm, "-", dd]);
+                  date = null;
+                }else if(result!=null){
+                  date = formatDate(result,[yyyy, "-", mm, "-", dd]);
                 }
-                controller.text = date;
+
+                controller.text = date??'';
                 callback(date);
               });
             });
