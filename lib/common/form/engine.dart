@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shiniu/common/form/element/dateElement.dart';
 import 'dart:convert';
 
 import 'package:flutter_shiniu/common/form/element/input.dart';
@@ -19,6 +20,8 @@ class Engine{
           widgets.add(SwitchElement(data:data,callback:(value){this.map[data["key"]] = value;}));
         }else if(data['type']=='radioList'){
           widgets.add(RadioListElement(data:data,callback:(value){this.map[data["key"]] = value;}));
+        }else if(data['type']=='date'){
+          widgets.add(DateElement(data:data,callback:(value){this.map[data["key"]]=value;}));
         }
     });
     return widgets;
