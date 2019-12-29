@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 
 import 'package:flutter_shiniu/common/form/element/input.dart';
+import 'package:flutter_shiniu/common/form/element/radioListElement.dart';
 import 'package:flutter_shiniu/common/form/element/switchElement.dart';
 
 class Engine{
@@ -16,6 +17,8 @@ class Engine{
           widgets.add(Input(data:data,callback:(value){this.map[data["key"]] = value;}).build());
         }else if(data['type']=='switch'){
           widgets.add(SwitchElement(data:data,callback:(value){this.map[data["key"]] = value;}));
+        }else if(data['type']=='radioList'){
+          widgets.add(RadioListElement(data:data,callback:(value){this.map[data["key"]] = value;}));
         }
     });
     return widgets;

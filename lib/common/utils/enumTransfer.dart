@@ -53,4 +53,17 @@ class EnumTransfer {
     return navigatorKeyMap[navigator];
   }
 
+  static parseEnumType(type){
+    switch(type){
+      case "stateMap": return stateMap; break;
+      case "periodMap": return periodMap; break;
+      case "columnTitleMap": return columnTitleMap; break;
+    }
+  }
+
+  static getValue(value,type){
+    var enumData = parseEnumType(type);
+    return enumData[value];
+  }
+
 }
