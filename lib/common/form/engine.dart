@@ -1,37 +1,18 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 
+import 'package:flutter_shiniu/common/form/element/input.dart';
+
 class Engine{
   Map<String,Object> map=<String,Object>{};
   Engine();
-  /**
-   * {'permission':'r','data':[],'type':'input','initValue':'123','label':'label',key:'key'}
-   */
-  Widget inputEngine(data){
-    print(data);
 
-    var permission = data['permission'];
-    if(permission=='r'){
-
-    }
-
-    TextEditingController controller = TextEditingController(text:data['initValue']);
-    return TextFormField(
-      controller: controller,
-      decoration: InputDecoration(
-          labelText: data['label'],
-      ),
-      onSaved: (value){
-        this.map[data['key']] = value;
-      },
-    );
-  }
 
   parseWidget(list){
     List<Widget> widgets = [];
-    list.forEach((map){
-        if(map['type']=='input'){
-          widgets.add(inputEngine(map));
+    list.forEach((data){
+        if(data['type']=='input'){
+          widgets.add(Input(data:data,callback:(value){this.map[data["key"]] = value;}).build());
         }
     });
     return widgets;
